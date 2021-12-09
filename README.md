@@ -26,8 +26,22 @@ define ('SPEEDY_USER', "") ;
 define ('SPEEDY_PASS', "") ;
 ```
 
+В същия файл е необходимо да зададете и следните детайли:
+```
+# Administrative
+define ('SITE_TITLE',       "") ;   // Insert tracking website name, e.g. define ('SITE_TITLE', "Магазин Example.com: движение на доставките") ;
+define ('SITE_URL',         "") ;   // Insert tracking website address including protocol, e.g. define ('SITE_URL', "https://tracking.example.com") ;
+define ('SITE_CONTACT_URL', "") ;   // Insert contact website address including protocol, e.g. define ('SITE_CONTACT_URL', "https://tracking.example.com/contact"
+```
+**Внимание:** Следете стриктно за правилното вмъкване на данните между кавичките. Има разлика между единични и двойни кавички. Една липсваща кавичка може да счупи цялото приложение и да го накара да показва празна страница.
+
 ## Употреба
 Линковете за проследяване се образуват, като към адреса на приложението се добави параметър p=номер_на_товарителница, т.е. tracking.example.com?p=1234567890. Това е връзката, която можете да изпращате на своите клиенти.
+
+Ако UT не може да разчете номера на товарителницата, ще издаде съобщение "Не можем да разпознаем куриера по посочения номер на товарителница. Свържете се с нас за повече информация." Свържете се с нас съдържа връзка към страницата за контакти в сайта, която можете да посочите в `config.inc.php`:
+```
+define ('SITE_CONTACT_URL', "") ;
+```
 
 ## За въпроси, мнения, препоръки и т.н. контакти
 Facebook група: www.facebook.com/groups/unbranded.tracker/
