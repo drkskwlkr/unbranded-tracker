@@ -49,7 +49,9 @@ if ( isset ($_GET['p'] ) && !empty ($_GET['p'] ) )
   $cid_start = substr($parcel_id, 0, 1) ;
 } else {
 
-  **echo '<h2>Необходимо е да подадете заявка с номер на товарителница</h2>' ;**
+  /* Replace echo statement with something else if you want to modify */
+  /* page behavior for people who land on page without a tracking no. */
+  echo '<h2>Необходимо е да подадете заявка с номер на товарителница</h2>' ;
 
   die() ;
 }
