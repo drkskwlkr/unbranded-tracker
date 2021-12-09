@@ -31,7 +31,7 @@ define ('SPEEDY_PASS', "") ;
 # Administrative
 define ('SITE_TITLE',       "") ;   // Insert tracking website name, e.g. define ('SITE_TITLE', "Магазин Example.com: движение на доставките") ;
 define ('SITE_URL',         "") ;   // Insert tracking website address including protocol, e.g. define ('SITE_URL', "https://tracking.example.com") ;
-define ('SITE_CONTACT_URL', "") ;   // Insert contact website address including protocol, e.g. define ('SITE_CONTACT_URL', "https://tracking.example.com/contact"
+define ('SITE_CONTACT_URL', "") ;   // Insert contact website address including protocol, e.g. define ('SITE_CONTACT_URL', "https://tracking.example.com/contact") ;
 ```
 **Внимание:** Следете стриктно за правилното вмъкване на данните между кавичките. Има разлика между единични и двойни кавички. Една липсваща кавичка може да счупи цялото приложение и да го накара да показва празна страница.
 
