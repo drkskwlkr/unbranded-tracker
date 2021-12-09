@@ -2,8 +2,9 @@
 # Some variables we will need
 
 # Administrative
-define ('SITE_TITLE', "") ; // Insert tracking website name inside dobule quotes, e.g. define ('SITE_TITLE', "Магазин Example.com: движение на доставките") ;
-define ('SITE_URL',   "") ; // Insert tracking website address including protocol inside double quotes, e.g. define ('SITE_URL', "https://tracking.example.com") ;
+define ('SITE_TITLE',        "") ; // Insert tracking website name inside dobule quotes, e.g. define ('SITE_TITLE', "Магазин Example.com: движение на доставките") ;
+define ('SITE_URL',          "") ; // Insert tracking website address including protocol inside double quotes, e.g. define ('SITE_URL', "https://tracking.example.com") ;
+define ('SITE_CONTACT_URL',  "") ; // Insert contact website address including protocol, e.g. define ('SITE_CONTACT_URL', "https://www.example.com/contact") ;
 
 # ------- SPEEDY -------
 # Speedy User details
