@@ -92,7 +92,7 @@ function printSpeedy($parcel_id, $language_id){
 	}	
 }
 
-function printEcont($parcel_id){
+function printEcont($parcel_id, $language_id){
 
 	/* Make API request */
 	$reqURL = ECONT_API_BASE . ECONT_API_CMD_TRACK ;
@@ -129,6 +129,14 @@ function printEcont($parcel_id){
 		"client"						=> "Доставена на получателя",
 	] ;
 
+	$terms_en = [
+		"prepared"					=> "Order has been processed",
+		"courier"						=> "Collected by courier",
+		"office"						=> "Reached office",
+		"courier_direction"	=> "In transit",
+		"client"						=> "Delivered",
+	] ;
+	
 	/* Remove action icons. Reason: mainly aesthetics (waste space and look bad on mobile screens) */
 	/*
 	$terms = [
@@ -151,7 +159,11 @@ function printEcont($parcel_id){
 		echo '<div class="monospaced">' ;
 		echo $opdate ;
 		echo " &rarr; " ;
-		echo '<span class="monoblocked">' . $action . '</span> <span class="monoblocked">' . $operations[$i]['destinationDetails'] . '</span>' ;
+		if ('en' == $language_id) {
+			echo '<span class="monoblocked">' . $terms_en[$operations[$i]['destinationType']] . '</span> <span class="monoblocked">' . $operations[$i]['destinationDetailsEn'] . '</span>' ;
+		} else {
+			echo '<span class="monoblocked">' . $terms[$operations[$i]['destinationType']]    . '</span> <span class="monoblocked">' . $operations[$i]['destinationDetails']   . '</span>' ;
+		}
 		echo '</div>' ;
 	}
 }
