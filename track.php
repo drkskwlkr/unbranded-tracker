@@ -206,3 +206,33 @@ function printA1post($parcel_id, $language_id){
 	}
 }
 
+function printLeoexpres($parcel_id){
+
+	// Pull data from the website
+	$reqURL = LEOEXPRES_URL_BASE . $parcel_id ;
+	$html		= file_get_contents ($reqURL) ;
+
+	// Turn the parsed table into a standalone HTML DOM document
+	$DOM = new DOMDocument() ;
+	$DOM->loadHTML('<?xml encoding="UTF-8">' . $html) ; // Encoding is very important!
+
+	// Extract div tags that contain timestamps and actions
+	$finder				= new DomXPath($DOM) ;
+	$timestamps		= iterator_to_array($finder->query("//*[contains(@class, 'recent-activity-body-title')]")) ;
+	$actions			= iterator_to_array($finder->query("//*[contains(@class, 'recent-activity-body-content')]")) ;
+
+	// Go through every row
+	$limit = count($timestamps) ;
+	for ($i = 0; $i < $limit; $i++)
+	{
+		// Format timestamp for consistency with other outputs
+		$opdate		= substr(str_replace(' - ', ' ', $timestamps[$i]->textContent), 0, 16) ;
+		$opstatus	= $actions[$i]->textContent ;
+
+		echo '<div class="monospaced">' ;
+		echo  $opdate ;
+		echo " &rarr; " ;
+		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
+		echo '</div>' ;
+	}
+}
