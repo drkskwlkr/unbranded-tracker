@@ -1,6 +1,4 @@
 <?php
-# Some variables we will need
-
 # Administrative
 define ('SITE_TITLE',        "") ; // Insert tracking website name inside dobule quotes, e.g. define ('SITE_TITLE', "Магазин Example.com: движение на доставките") ;
 define ('SITE_URL',          "") ; // Insert tracking website address including protocol inside double quotes, e.g. define ('SITE_URL', "https://tracking.example.com") ;
@@ -25,9 +23,28 @@ $callSpeedyTrack = SPEEDY_API_BASE . SPEEDY_API_CMD_TRACK . '?userName=' . SPEED
 define ('ECONT_API_BASE', "https://ee.econt.com/services/") ;                            // Do not change this unless instructed by the developer
 define ('ECONT_API_CMD_TRACK', "Shipments/ShipmentService.getShipmentStatuses.json") ;   // Do not change this unless instructed by the developer
 
-# Econt API syntax
-$callEcontTrack = ECONT_API_BASE . ECONT_API_CMD_TRACK ;
+# Econt API command syntax
+$callEcontTrack = ECONT_API_BASE .	ECONT_API_CMD_TRACK ;
+
 
 # ------- A1 POST -------
 define('A1POST_URL_BASE_BG', "https://a1post.bg/track/") ;
 define('A1POST_URL_BASE_EN', "https://a1post.bg/en/track/") ;
+
+
+/* Determine courier according to tracking number format */
+define('PATTERN_SPEEDY',	'/^(6)[0-9]{10}$/') ;
+define('PATTERN_ECONT',   '/^(1)[0-9]{12}$/') ;
+define('PATTERN_A1POST',  '/^(UR|LY|RS)[0-9]{9}(DE)$/') ;
+
+/* **************************************************** */
+/*
+Speedy uses 11-character tracking numbers starting with 6
+Econt uses 13-character tracking numbers starting with 10
+A1 Post uses UPU format (XX123456789YY)
+	UR: No tracking provided
+	LY: Tracking provided, no signature on delivery
+	RS: Tracking provided, require signature on delivery
+	Trailing marker is always DE
+*/
+/* **************************************************** */
