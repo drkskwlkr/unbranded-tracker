@@ -8,15 +8,22 @@
 
 require_once( $_SERVER['DOCUMENT_ROOT'] . '/config.inc.php' ) ;
 
-// Determine  courier
-// Speedy uses 11-character tracking numbers starting with 6
-// Econt uses 13-character tracking numbers starting with 10
-define("SPEEDY_COUNT", 11) ;
-define("SPEEDY_START",  6) ;
-define("ECONT_COUNT",  13) ;
-define("ECONT_START",   1) ;
-//define("CVC_COUNT",		  8) ;
-//define("CVC_START",	  "#") ;
+/* Determine courier according to tracking number format */
+/*
+Speedy uses 11-character tracking numbers starting with 6
+Econt uses 13-character tracking numbers starting with 10
+A1 Post uses UPU format (XX123456789YY)
+	UR: No tracking provided
+	LY: Tracking provided, no signature on delivery
+	RS: Tracking provided, require signature on delivery
+	Trailing marker is always DE
+*/
+
+$pattern_speedy	= '/^(6)[0-9]{10}$/' ;
+$pattern_econt	= '/^(1)[0-9]{12}$/' ;
+$pattern_a1post = '/^(UR|LY|RS)[0-9]{9}(DE)$/' ;
+
+
 
 if ( isset ($_GET['p'] ) && !empty ($_GET['p'] ) )
 {
