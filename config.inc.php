@@ -27,3 +27,7 @@ define ('ECONT_API_CMD_TRACK', "Shipments/ShipmentService.getShipmentStatuses.js
 
 # Econt API syntax
 $callEcontTrack = ECONT_API_BASE . ECONT_API_CMD_TRACK ;
+
+# ------- A1 POST -------
+define('A1POST_URL_BASE_BG', "https://a1post.bg/track/") ;
+define('A1POST_URL_BASE_EN', "https://a1post.bg/en/track/") ;
