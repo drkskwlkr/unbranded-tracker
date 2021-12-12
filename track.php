@@ -5,7 +5,7 @@
 // ini_set('display_startup_errors', 1) ;
 // error_reporting(E_ALL) ;
 
-
+require_once( $_SERVER['DOCUMENT_ROOT'] . '/access.inc.php' ) ;
 require_once( $_SERVER['DOCUMENT_ROOT'] . '/config.inc.php' ) ;
 
 /* Determine language */
@@ -233,6 +233,46 @@ function printLeoexpres($parcel_id){
 		echo  $opdate ;
 		echo " &rarr; " ;
 		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
+		echo '</div>' ;
+	}
+}
+
+function printCVC($parcel_id, $language_id) {
+
+	/* Make API request */
+	$reqURL = CVC_API_BASE . '?full=true&view=json&locale=' . $language_id . '&manifestID=' . $parcel_id ;
+
+	$curl = curl_init($reqURL) ;
+	curl_setopt($curl, CURLOPT_HEADER, false) ;
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true) ;
+	curl_setopt($curl, CURLOPT_POST, false) ;
+
+	$json_response = curl_exec($curl) ;
+
+	$status = curl_getinfo($curl, CURLINFO_HTTP_CODE) ;
+
+	if ( $status != 200 ) {
+		die("Error: call to URL $reqURL failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl)) ;
+	}
+
+	curl_close($curl) ;
+
+	/* Interpret request output */
+	$response		= json_decode($json_response, true) ;
+	$operations	= $response['states'] ;
+
+	/* Print data */
+	$limit = count($operations) - 1 ;
+
+	for ($i = $limit; $i >= 0 ; $i--)
+	{
+		$opdate = $operations[$i]['date'] / 1000 ;
+		$opdate = date('d.m.Y H:i', $opdate) ;
+
+		echo '<div class="monospaced">' ;
+		echo $opdate ;
+		echo " &rarr; " ;
+		echo '<span class="monoblocked">' . $operations[$i]['display'] . '</span> <span class="monoblocked">' . $operations[$i]['station'] . '</span>' ;
 		echo '</div>' ;
 	}
 }
