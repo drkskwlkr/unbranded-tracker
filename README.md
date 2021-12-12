@@ -83,7 +83,7 @@ define ('LANGUAGE_DEFAULT',	"bg") ; // Determine default language for return que
 ## Демонстрация
 Ако искате да видите как изглежда приложението без да сваляте и хоствате файлове, можете да кликнете върху някой от следните линкове:
 - [Примерен резултат с Еконт](https://utdemo.webstage.dev/?p=1054219036007) 
-- [Примерен резултат с A1 Post](https://utdemo.webstage.dev/?p=61605758143)
+- [Примерен резултат с A1 Post](https://utdemo.webstage.dev/?p=RS082678975DE)
 - [Примерен резултат с Leo Expres](https://utdemo.webstage.dev/?p=69904612)
 - [Примерен резултат със CVC](https://utdemo.webstage.dev/?p=00090798)
 
