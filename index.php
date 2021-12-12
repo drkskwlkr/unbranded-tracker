@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php require_once( $_SERVER['DOCUMENT_ROOT'] . '/access.inc.php') ; ?>
 <?php require_once( $_SERVER['DOCUMENT_ROOT'] . '/config.inc.php') ; ?>
 
 <head>
@@ -13,24 +14,23 @@
 </head>
 
 <body>
-
 	<!-- Main Area Begin -->
 	<section id="main">
 		<h1 class="maintitle">Информация за <span class="optional"> движението на </span>Вашата пратка</h1>		
-
 		<?php require_once( $sitebasepath=$_SERVER['DOCUMENT_ROOT'] . '/track.php') ; ?>
-
 	</section>
 	<!-- Main Area End -->
 
+	
+	<!-- Marketing Messaging Area Begin -->
 	<section id="additional">
-
 		<p>&nbsp;</p>
-
 	</section>
+	<!-- Marketing Messaging Area End -->
 
+	
 	<!-- Pixel & Tracking Code Area Begin -->
   
-  <!-- Pixel & Tracking Code Area End -->
+  	<!-- Pixel & Tracking Code Area End -->
 </body>
 </html>
