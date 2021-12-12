@@ -39,6 +39,12 @@ if ( isset ($_GET['p'] ) && !empty ($_GET['p'] ) )
 	} elseif (preg_match(PATTERN_A1POST, $parcel_id)) {
 		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="a1post">A1 Post</span>. Хронология<span class="optional"> на събитията</span>:</h2>' ;
 		printA1post($parcel_id, $language_id) ;
+	} elseif (preg_match(PATTERN_LEOEXPRES, $parcel_id)) {
+		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="leoexpres">Leo Expres</span>. Хронология<span class="optional"> на събитията</span>:</h2>' ;
+		printLeoexpres($parcel_id) ;
+	} elseif (preg_match(PATTERN_CVC, $parcel_id)) {
+		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="cvc">CVC</span>. Хронология<span class="optional"> на събитията</span>:</h2>' ;
+		printCVC($parcel_id, $language_id) ;
 	} else {
 		echo '<h2>Не можем да разпознаем куриера по посочения номер на товарителница. <a href="' . SITE_CONTACT_URL . '">Свържете се с нас</a> за повече информация. </h2>' ;
 		die() ;
