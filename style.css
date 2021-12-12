@@ -51,6 +51,10 @@ h2 {
   font-weight:    bold ;
 }
 
+.cvc {
+	color:					#5F3E8F ;
+	font-weight:		 bold ;
+}
 
 @media only screen and (max-device-width: 480px) {
 
