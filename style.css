@@ -92,12 +92,12 @@ h2 {
 		font-family:  inherit ;
   }
 
-  .optional {
-    display:      inline ;
-  }
-
 	.monospaced {
 		max-width: 800px ;		
 	}
 	
+  .optional {
+    display:      inline ;
+  }
+
 }
