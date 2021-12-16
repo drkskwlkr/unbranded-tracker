@@ -96,4 +96,8 @@ h2 {
     display:      inline ;
   }
 
+	.monospaced {
+		max-width: 800px ;		
+	}
+	
 }
