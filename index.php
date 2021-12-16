@@ -14,24 +14,23 @@
 </head>
 
 <body>
-
 	<!-- Main Area Begin -->
 	<section id="main">
-		<div class="header">
-			<h1 class="maintitle">Информация за <span class="optional"> движението на </span>Вашата пратка</h1>		
-			<?php require_once( $sitebasepath=$_SERVER['DOCUMENT_ROOT'] . '/track.php') ; ?>
-		</div>
+		<h1 class="maintitle">Информация за <span class="optional"> движението на </span>Вашата пратка</h1>		
+		<?php require_once( $sitebasepath=$_SERVER['DOCUMENT_ROOT'] . '/track.php') ; ?>
 	</section>
 	<!-- Main Area End -->
 
+	
+	<!-- Marketing Messaging Area Begin -->
 	<section id="additional">
-		<div class="extra-content">
-			<p>&nbsp;</p>
-		</div>
+		<p>&nbsp;</p>
 	</section>
+	<!-- Marketing Messaging Area End -->
 
+	
 	<!-- Pixel & Tracking Code Area Begin -->
   
-  <!-- Pixel & Tracking Code Area End -->
+  	<!-- Pixel & Tracking Code Area End -->
 </body>
 </html>
