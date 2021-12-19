@@ -21,16 +21,14 @@
 	</section>
 	<!-- Main Area End -->
 
-	
-	<!-- Marketing Messaging Area Begin -->
+	<!-- Additional Area Start -->
 	<section id="additional">
-		<p>&nbsp;</p>
+		
 	</section>
-	<!-- Marketing Messaging Area End -->
+	<!-- Additional Area End -->
 
-	
 	<!-- Pixel & Tracking Code Area Begin -->
   
-  	<!-- Pixel & Tracking Code Area End -->
+  <!-- Pixel & Tracking Code Area End -->
 </body>
 </html>
