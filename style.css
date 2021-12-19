@@ -24,6 +24,10 @@ h2 {
 	padding-bottom:		12px ;
 }
 
+h2.alert {
+	color:#dc0032 ;
+}
+
 .monospaced {
 	font-family:		'JetBrains Mono', monospace ;
 	border-bottom:		1px dotted silver ;
@@ -55,6 +59,11 @@ h2 {
 	font-weight:		 bold ;
 }
 
+.elta {
+	color:					#0077ba ;
+	font-weight:		 bold ;
+}
+
 /* Small Phone Screens */
 @media only screen and (max-device-width: 480px) {
 
@@ -73,6 +82,34 @@ h2 {
 		padding:		6px 12px 6px 12px;
 		background-color: #e3e3e3;
 		border-bottom: #cbcbcb solid 1px ;
+  }
+
+	h2.alert {
+		color:#dc0032 ;
+	}
+
+	.h3map {
+		font-size:	20px;
+		padding:		6px 24px 6px 24px;
+		background-color: #e3e3e3;
+		border-bottom: #cbcbcb solid 1px ;
+
+		flex: 1 1 auto;
+  }
+
+	.h3predict {
+		font-size:	20px;
+		padding:		6px 24px 6px 24px;
+		background-color: #f8ad0a;
+	}
+
+	.h3delivered {
+		font-size:	20px;
+		padding:		6px 24px 6px 24px;
+		background-color: #aafb9f;
+		border-bottom: #cbcbcb solid 1px ;
+
+		flex: 1 1 auto;
   }
 
 	.monospaced {
@@ -94,16 +131,42 @@ h2 {
 		display:			block ;
 	}
 
+	.pull-right {
+		float:				right ;
+	}
+
 	.optional {
 		display:			none ;
 	}
+
+	.ifmap {
+		width: 				100% ;
+		height:				400px ;
+		border:				0px;
+
+	}
+
+	.reviewarea {
+		font-size:				14px;
+		padding:					12px 24px 12px 24px;
+    background-color: #fcfff1;
+		border-bottom:		#cbcbcb solid 1px ;
+		flex: 1 1 auto;
+  }
 
 }
 
 /* Bigger Screens */
 @media only screen and (min-device-width: 481px) {
 
+	#main {
+		max-width:	800px ;
+		margin:			24px;
+		border:			1px solid darkgrey;
+	}
+
   h1 {
+		height:				48px;
     font-size:    25px ;
 		position:			sticky;
     padding:			12px 24px 6px 24px;
@@ -118,6 +181,30 @@ h2 {
 		padding:		6px 24px 12px 24px;
 		background-color: #e3e3e3;
 		border-bottom: #cbcbcb solid 1px ;
+  }
+
+	.h3map {
+		font-size:	20px;
+		padding:		6px 24px 6px 24px;
+		background-color: #e3e3e3;
+		border-bottom: #cbcbcb solid 1px ;
+
+		flex: 1 1 auto;
+  }
+
+	.h3predict {
+		font-size:	20px;
+		padding:		6px 24px 6px 24px;
+		background-color: #f8ad0a;
+	}
+	
+	.h3delivered {
+		font-size:	20px;
+		padding:		6px 24px 6px 24px;
+		background-color: #aafb9f;
+		border-bottom: #cbcbcb solid 1px ;
+
+		flex: 1 1 auto;
   }
 
 	.monospaced {
@@ -141,6 +228,21 @@ h2 {
 
   .optional {
     display:      inline ;
+  }
+
+	.ifmap {
+		width: 				100% ;
+		height:				600px ;
+		border:				0px;
+
+	}
+
+	.reviewarea {
+		font-size:				16px;
+		padding:					12px 24px 12px 24px;
+    background-color: #fcfff1;
+		border-bottom:		#cbcbcb solid 1px ;
+		flex: 1 1 auto;
   }
 
 }
