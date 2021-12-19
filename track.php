@@ -89,14 +89,52 @@ function printSpeedy($parcel_id, $language_id){
 		$opdate = $operations[$i]['dateTime'] ;
 		$opdate = strtotime($opdate) ;
 		$opdate = date('d.m.Y H:i', $opdate) ;
+		$opcode = $operations[$i]['operationCode'] ;
 
 		echo '<div class="monospaced">' ;
 		echo  $opdate ;
 		echo " &rarr; " ;
 		echo '<span class="monoblocked">' . $operations[$i]['description'] . '</span>' ;
 		echo '</div>' ;
-	}	
+	}
+	
+	/* Check if there is office location data */
+	$reqURL = SPEEDY_API_BASE . SPEEDY_API_CMD_RCV_OFFICE . '?userName=' . SPEEDY_USER . '&password=' . SPEEDY_PASS . '&language=' . $language_id . '&shipmentIds=' . $parcel_id ;
+
+	$curl = curl_init() ;
+	curl_setopt_array($curl, array(
+		CURLOPT_URL => $reqURL,
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_ENCODING => '',
+		CURLOPT_MAXREDIRS => 1,
+		CURLOPT_TIMEOUT => 0,
+		CURLOPT_FOLLOWLOCATION => true,
+		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		CURLOPT_CUSTOMREQUEST => 'GET',
+	)) ;
+	$response = curl_exec($curl) ;
+	$status = curl_getinfo($curl, CURLINFO_HTTP_CODE) ;
+	if ( $status != 200 )
+	{
+			die("Error: call to URL $reqURL failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl)) ;
+	}
+	curl_close($curl) ;
+
+	$data		= json_decode($response, true) ;
+
+	$collect	= $data['shipments']['0']['recipient']['pickupOfficeId'] ;
+
+	if (-14 === $opcode) { // Package has been delivered
+		echo '<h3 class="h3delivered">Пратката е доставена</h3>' . "\n" ;
+		feedbackRequestGoogle() ;
+	} elseif ($collect) { // Package has been sent to office and is not yet delivered
+		echo '<h3 class="h3map">Локация и работно време:</h3>' ;
+		echo '<div class="map">' ;
+		echo '<iframe class="ifmap" src="https://services.speedy.bg/officesmap?lang=' . $language_id . '&id=' . $collect . '">' ;
+		echo '</div>' ;
+	}
 }
+
 
 function printEcont($parcel_id, $language_id){
 
