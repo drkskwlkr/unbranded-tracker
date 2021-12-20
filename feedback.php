@@ -40,7 +40,7 @@ echo '<style>
 function feedbackRequestGoogle () {
   echo '<div class="reviewarea">' ;
   echo '<p>Ако сте доволни от покупката, бихте ли оставили отзив за нас?</p>' ;
-  echo '<a class="css-button-google">' . "\n" ;
+  echo '<a class="css-button-google" href="' . REVIEW_URL_GMB . '">' . "\n" ;
 	echo '<span class="css-button-google-icon"><i class="fa fa-google" aria-hidden="true"></i></span>' . "\n" ;
 	echo '<span class="css-button-google-text">Препоръчай</span>' . "\n" ;
   echo '</a>' ;
