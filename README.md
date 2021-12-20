@@ -33,6 +33,7 @@ config.inc.php
 index.php
 style.css
 track.php
+feedback.php
 ```
 [Как се свалят файлове от GitHib (YouTube видео)](https://www.youtube.com/watch?v=GIJdfuAoqFI)
 
