@@ -5,6 +5,9 @@ define ('SITE_URL',						"") ; // Insert tracking website address including prot
 define ('SITE_CONTACT_URL',		"") ; // Insert contact website address including protocol, e.g. define ('SITE_CONTACT_URL', "https://www.example.com/contact") ;
 define ('LANGUAGE_DEFAULT',		"bg") ; // Determine default language for return queries. Specify either bg or en (small caps)
 
+# Review links
+define ('REVIEW_URL_GMB',			"") ; // Insert review URL for Google My Business (see https://support.google.com/business/answer/7035772?hl=en)
+
 # ------- SPEEDY -------
 # Speedy User details
 define ('SPEEDY_USER', "") ;		// Insert username Speedy API username inside quotes, e.g. define ('SPEEDY_USER', "912345") ;
