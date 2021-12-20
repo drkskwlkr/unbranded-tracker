@@ -3,7 +3,6 @@
 
 <?php require_once( $_SERVER['DOCUMENT_ROOT'] . '/access.inc.php') ; ?>
 <?php require_once( $_SERVER['DOCUMENT_ROOT'] . '/config.inc.php') ; ?>
-<?php require_once( $_SERVER['DOCUMENT_ROOT'] . '/track.php') ; ?>
 
 <head>
   <meta charset="UTF-8">
@@ -18,7 +17,7 @@
 	<!-- Main Area Begin -->
 	<section id="main">
 		<h1 class="maintitle">Информация за <span class="optional"> движението на </span>Вашата пратка</h1>		
-		<?php require_once( $sitebasepath=$_SERVER['DOCUMENT_ROOT'] . '/track.php') ; ?>
+		<?php require_once( $_SERVER['DOCUMENT_ROOT'] . '/track.php') ; ?>
 	</section>
 	<!-- Main Area End -->
 
