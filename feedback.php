@@ -5,6 +5,7 @@ echo '<link href="https://fonts.googleapis.com/css?family=Roboto" rel="styleshee
 echo '<style>
 .css-button-google {
 	font-family: Roboto, sans-serif;
+	text-decoration: none;
 	color: #FFFFFF;
 	font-size: 16px;
 	border-radius: 5px;
