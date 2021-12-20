@@ -3,7 +3,6 @@
 
 <?php require_once( $_SERVER['DOCUMENT_ROOT'] . '/access.inc.php') ; ?>
 <?php require_once( $_SERVER['DOCUMENT_ROOT'] . '/config.inc.php') ; ?>
-<?php require_once( $_SERVER['DOCUMENT_ROOT'] . '/track.php') ; ?>
 
 <head>
   <meta charset="UTF-8">
