@@ -209,6 +209,13 @@ function printEcont($parcel_id, $language_id){
 			echo '<span class="monoblocked">' . $terms[$operations[$i]['destinationType']]    . '</span> <span class="monoblocked">' . $operations[$i]['destinationDetails']   . '</span>' ;
 		}
 		echo '</div>' ;
+		
+		/* If package has been delivered, show the delivery notice and ask for a review */
+		if ("client" === $operations[$i]['destinationType']) { // Package has been delivered
+			echo '<h3 class="h3delivered">Пратката е доставена</h3>' . "\n" ;
+			feedbackRequestGoogle() ;
+		}	
+		
 	}
 }
 
@@ -278,6 +285,11 @@ function printLeoexpres($parcel_id){
 		echo " &rarr; " ;
 		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
 		echo '</div>' ;
+		
+		if (strpos($opstatus, "Доставена до клиент")) { // Package has been delivered
+			echo '<h3 class="h3delivered">Пратката е доставена</h3>' . "\n" ;
+			feedbackRequestGoogle() ;
+		}
 	}
 }
 
