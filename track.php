@@ -331,4 +331,11 @@ function printCVC($parcel_id, $language_id) {
 		echo '<span class="monoblocked">' . $operations[$i]['display'] . '</span> <span class="monoblocked">' . $operations[$i]['station'] . '</span>' ;
 		echo '</div>' ;
 	}
+
+	/* If package has been delivered, show the delivery notice and ask for a review */
+	if ("Доставена - без възражения" === $operations[$i]['display']) { // Package has been delivered
+		echo '<h3 class="h3delivered">Пратката е доставена</h3>' . "\n" ;
+		feedbackRequestGoogle() ;
+		break ;
+	}
 }
