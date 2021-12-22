@@ -254,6 +254,13 @@ function printA1post($parcel_id, $language_id){
 		echo " &rarr; " ;
 		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
 		echo '</div>' ;
+		
+		/* If package has been delivered, show the delivery notice and ask for a review */
+		if ("DELIVERED" == strtok($opstatus, " ")) { // Package has been delivered
+			echo '<h3 class="h3delivered">Пратката е доставена</h3>' . "\n" ;
+			feedbackRequestGoogle() ;
+			break ;
+		}
 	}
 }
 
