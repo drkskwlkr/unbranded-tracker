@@ -266,7 +266,6 @@ function printA1post($parcel_id, $language_id){
 		echo  $opdate ;
 		echo " &rarr; " ;
 		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
-		echo strtok($opstatus, " ") ;
 		echo '</div>' ;
 		
 		/* If package has been delivered, show the delivery notice and ask for a review */
