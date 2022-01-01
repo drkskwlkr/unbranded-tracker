@@ -5,6 +5,7 @@
 // ini_set('display_startup_errors', 1) ;
 // error_reporting(E_ALL) ;
 
+require_once( $_SERVER['DOCUMENT_ROOT'] . '/access.inc.php' ) ;
 require_once( $_SERVER['DOCUMENT_ROOT'] . '/config.inc.php' ) ;
 require_once( $_SERVER['DOCUMENT_ROOT'] . '/feedback.php' ) ;
 
@@ -133,8 +134,6 @@ function printSpeedy($parcel_id, $language_id){
 	if (-14 === $opcode) { // Package has been delivered
 		echo '<h3 class="h3delivered">Пратката е доставена</h3>' . "\n" ;
 		feedbackRequestGoogle() ;
-	} elseif (isset($predict)) { // DPD Predict
-		echo '<h3 class="h3predict">' . $predict . '</h3>' ;
 	} elseif ($collect) { // Package has been sent to office and is not yet delivered
 		echo '<h3 class="h3map">Локация и работно време:</h3>' ;
 		echo '<div class="map">' ;
@@ -269,7 +268,7 @@ function printA1post($parcel_id, $language_id){
 		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
 		echo strtok($opstatus, " ") ;
 		echo '</div>' ;
-
+		
 		/* If package has been delivered, show the delivery notice and ask for a review */
 		if ("DELIVERED" == strtok($opstatus, " ")) { // Package has been delivered
 			echo '<h3 class="h3delivered">Пратката е доставена</h3>' . "\n" ;
@@ -278,7 +277,6 @@ function printA1post($parcel_id, $language_id){
 		}
 	}
 }
-
 
 function printLeoexpres($parcel_id){
 
@@ -308,16 +306,13 @@ function printLeoexpres($parcel_id){
 		echo " &rarr; " ;
 		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
 		echo '</div>' ;
-
+		
 		if (strpos($opstatus, "Доставена до клиент")) { // Package has been delivered
 			echo '<h3 class="h3delivered">Пратката е доставена</h3>' . "\n" ;
 			feedbackRequestGoogle() ;
 		}
-	
 	}
-
 }
-
 
 function printCVC($parcel_id, $language_id) {
 
@@ -356,14 +351,12 @@ function printCVC($parcel_id, $language_id) {
 		echo " &rarr; " ;
 		echo '<span class="monoblocked">' . $operations[$i]['display'] . '</span> <span class="monoblocked">' . $operations[$i]['station'] . '</span>' ;
 		echo '</div>' ;
-
+		
 		/* If package has been delivered, show the delivery notice and ask for a review */
 		if ("Доставена - без възражения" === $operations[$i]['display']) { // Package has been delivered
 			echo '<h3 class="h3delivered">Пратката е доставена</h3>' . "\n" ;
 			feedbackRequestGoogle() ;
-			break ;
+		break ;
 		}
 	}
-
 }
-

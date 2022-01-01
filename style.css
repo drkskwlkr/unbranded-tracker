@@ -67,13 +67,13 @@ h2.alert {
 /* Small Phone Screens */
 @media only screen and (max-device-width: 480px) {
 
-	.maintitle {
+  h1 {
     font-size:    24px ;
 		position:			sticky;
     padding:			6px 12px 0px 12px;
     top:					0px;
     background-color: #e3e3e3;
-}
+  }
 
   h2 {
 		font-size:	20px;
@@ -165,7 +165,7 @@ h2.alert {
 		border:			1px solid darkgrey;
 	}
 
-	.maintitle {
+  h1 {
 		height:				48px;
     font-size:    25px ;
 		position:			sticky;

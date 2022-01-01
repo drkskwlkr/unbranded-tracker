@@ -1,8 +1,8 @@
 <?php
 # ------- SPEEDY -------
 # Speedy API details
-define ('SPEEDY_API_BASE', 'https://api.speedy.bg/v1/') ; // Do not change this unless instructed by the developer
-define ('SPEEDY_API_CMD_TRACK', 'track') ;                // Do not change this unless instructed by the developer
+define ('SPEEDY_API_BASE', "https://api.speedy.bg/v1/") ; // Do not change this unless instructed by the developer
+define ('SPEEDY_API_CMD_TRACK', "track") ;                // Do not change this unless instructed by the developer
 define ('SPEEDY_API_CMD_RCV_OFFICE', 'shipment/info') ;		// Do not change this unless instructed by the developer
 
 
