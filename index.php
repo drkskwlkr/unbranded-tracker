@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php require_once( $_SERVER['DOCUMENT_ROOT'] . '/access.inc.php') ; ?>
 <?php require_once( $_SERVER['DOCUMENT_ROOT'] . '/config.inc.php') ; ?>
 
 <head>

@@ -7,8 +7,8 @@ define ('LANGUAGE_DEFAULT',		"bg") ; // Determine default language for return qu
 
 # ------- SPEEDY -------
 # Speedy User details
-define ('SPEEDY_USER', "") ;        // Insert username Speedy API username inside quotes, e.g. define ('SPEEDY_USER', "912345") ;
-define ('SPEEDY_PASS', "") ;        // Insert password for Speedy API inside quotes, e.g. define ('SPEEDY_PASS', "12345678901") ;
+define ('SPEEDY_USER',				"") ;        // Insert username Speedy API username inside quotes, e.g. define ('SPEEDY_USER', "912345") ;
+define ('SPEEDY_PASS',				"") ;        // Insert password for Speedy API inside quotes, e.g. define ('SPEEDY_PASS', "12345678901") ;
 
 # Speedy API details
 define ('SPEEDY_API_BASE', "https://api.speedy.bg/v1/") ; // Do not change this unless instructed by the developer
@@ -26,10 +26,16 @@ define('A1POST_URL_BASE_BG', "https://a1post.bg/track/") ;
 define('A1POST_URL_BASE_EN', "https://a1post.bg/en/track/") ;
 
 
+# ------- Leo Expres ----
+define('LEOEXPRES_URL_BASE', "https://leoexpres.bg/include/ajax/get_trace.php?wb=") ;
+
+
+
 /* Determine courier according to tracking number format */
-define('PATTERN_SPEEDY',	'/^(6)[0-9]{10}$/') ;
-define('PATTERN_ECONT',   '/^(1)[0-9]{12}$/') ;
-define('PATTERN_A1POST',  '/^(UR|LY|RS)[0-9]{9}(DE)$/') ;
+define('PATTERN_SPEEDY',			'/^(6)[0-9]{10}$/') ;
+define('PATTERN_ECONT',				'/^(1)[0-9]{12}$/') ;
+define('PATTERN_A1POST',			'/^(UR|LY|RS)[0-9]{9}(DE)$/') ;
+define('PATTERN_LEOEXPRES',		'/^(6|7)[0-9]{7}$/') ;
 
 /* **************************************************** */
 /*

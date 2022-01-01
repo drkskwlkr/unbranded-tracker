@@ -5,7 +5,6 @@
 // ini_set('display_startup_errors', 1) ;
 // error_reporting(E_ALL) ;
 
-
 require_once( $_SERVER['DOCUMENT_ROOT'] . '/config.inc.php' ) ;
 
 /* Determine language */
@@ -39,6 +38,12 @@ if ( isset ($_GET['p'] ) && !empty ($_GET['p'] ) )
 	} elseif (preg_match(PATTERN_A1POST, $parcel_id)) {
 		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="a1post">A1 Post</span>. Хронология<span class="optional"> на събитията</span>:</h2>' ;
 		printA1post($parcel_id, $language_id) ;
+	} elseif (preg_match(PATTERN_LEOEXPRES, $parcel_id)) {
+		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="leoexpres">Leo Expres</span>. Хронология<span class="optional"> на събитията</span>:</h2>' ;
+		printLeoexpres($parcel_id) ;
+	} elseif (preg_match(PATTERN_CVC, $parcel_id)) {
+		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="cvc">CVC</span>. Хронология<span class="optional"> на събитията</span>:</h2>' ;
+		printCVC($parcel_id, $language_id) ;
 	} else {
 		echo '<h2>Не можем да разпознаем куриера по посочения номер на товарителница. <a href="' . SITE_CONTACT_URL . '">Свържете се с нас</a> за повече информация. </h2>' ;
 		die() ;
@@ -153,8 +158,6 @@ function printEcont($parcel_id, $language_id){
 	{
 		$opdate = $operations[$i]['time'] / 1000 ;
 		$opdate = date('d.m.Y H:i', $opdate) ;
-		//$action = $operations[$i]['destinationType'] ;
-		//$action = $terms[$operations[$i]['destinationType']] ;
 
 		echo '<div class="monospaced">' ;
 		echo $opdate ;
@@ -206,3 +209,73 @@ function printA1post($parcel_id, $language_id){
 	}
 }
 
+function printLeoexpres($parcel_id){
+
+	// Pull data from the website
+	$reqURL = LEOEXPRES_URL_BASE . $parcel_id ;
+	$html		= file_get_contents ($reqURL) ;
+
+	// Turn the parsed table into a standalone HTML DOM document
+	$DOM = new DOMDocument() ;
+	$DOM->loadHTML('<?xml encoding="UTF-8">' . $html) ; // Encoding is very important!
+
+	// Extract div tags that contain timestamps and actions
+	$finder				= new DomXPath($DOM) ;
+	$timestamps		= iterator_to_array($finder->query("//*[contains(@class, 'recent-activity-body-title')]")) ;
+	$actions			= iterator_to_array($finder->query("//*[contains(@class, 'recent-activity-body-content')]")) ;
+
+	// Go through every row
+	$limit = count($timestamps) ;
+	for ($i = 0; $i < $limit; $i++)
+	{
+		// Format timestamp for consistency with other outputs
+		$opdate		= substr(str_replace(' - ', ' ', $timestamps[$i]->textContent), 0, 16) ;
+		$opstatus	= $actions[$i]->textContent ;
+
+		echo '<div class="monospaced">' ;
+		echo  $opdate ;
+		echo " &rarr; " ;
+		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
+		echo '</div>' ;
+	}
+}
+
+function printCVC($parcel_id, $language_id) {
+
+	/* Make API request */
+	$reqURL = CVC_API_BASE . '?full=true&view=json&locale=' . $language_id . '&manifestID=' . $parcel_id ;
+
+	$curl = curl_init($reqURL) ;
+	curl_setopt($curl, CURLOPT_HEADER, false) ;
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true) ;
+	curl_setopt($curl, CURLOPT_POST, false) ;
+
+	$json_response = curl_exec($curl) ;
+
+	$status = curl_getinfo($curl, CURLINFO_HTTP_CODE) ;
+
+	if ( $status != 200 ) {
+		die("Error: call to URL $reqURL failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl)) ;
+	}
+
+	curl_close($curl) ;
+
+	/* Interpret request output */
+	$response		= json_decode($json_response, true) ;
+	$operations	= $response['states'] ;
+
+	/* Print data */
+	$limit = count($operations) - 1 ;
+
+	for ($i = $limit; $i >= 0 ; $i--)
+	{
+		$opdate = $operations[$i]['date'] / 1000 ;
+		$opdate = date('d.m.Y H:i', $opdate) ;
+
+		echo '<div class="monospaced">' ;
+		echo $opdate ;
+		echo " &rarr; " ;
+		echo '<span class="monoblocked">' . $operations[$i]['display'] . '</span> <span class="monoblocked">' . $operations[$i]['station'] . '</span>' ;
+		echo '</div>' ;
+	}
+}
