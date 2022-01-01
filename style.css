@@ -67,7 +67,7 @@ h2.alert {
 /* Small Phone Screens */
 @media only screen and (max-device-width: 480px) {
 
-  h1 {
+  h1.maintitle {
     font-size:    24px ;
 		position:			sticky;
     padding:			6px 12px 0px 12px;
@@ -165,7 +165,7 @@ h2.alert {
 		border:			1px solid darkgrey;
 	}
 
-  h1 {
+  h1.maintitle {
 		height:				48px;
     font-size:    25px ;
 		position:			sticky;
