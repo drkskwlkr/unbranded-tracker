@@ -36,6 +36,7 @@ echo '<style>
 }
 </style>' . "\n" ;
 
+
 /* Insert Google Review button */
 function feedbackRequestGoogle () {
   echo '<div class="reviewarea">' ;
