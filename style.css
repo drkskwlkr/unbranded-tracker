@@ -13,7 +13,6 @@
 html, body {
 	background:		#eef0f3 ;
 	position:		relative ;
-	padding:		12px ;
 }
 
 h1 {
@@ -25,6 +24,10 @@ h2 {
 	padding-bottom:		12px ;
 }
 
+h2.alert {
+	color:#dc0032 ;
+}
+
 .monospaced {
 	font-family:		'JetBrains Mono', monospace ;
 	border-bottom:		1px dotted silver ;
@@ -32,22 +35,22 @@ h2 {
 }
 
 .econt {
-	color:			#4877ce ;
+	color:				#4877ce ;
 	font-weight:		bold ;
 }
 
 .speedy {
-	color:			#dc0032 ;
+	color:				#dc0032 ;
 	font-weight:		bold ;
 }
 
 .a1post {
-	color:			#fba511 ;
+	color:				#fba511 ;
 	font-weight:		bold ;
 }
 
-.a1post {
-	color:					#fba511 ;
+.leoexpres {
+  color:          #f78721 ;
 	font-weight:		bold ;
 }
 
@@ -56,36 +59,166 @@ h2 {
 	font-weight:		 bold ;
 }
 
+.elta {
+	color:					#0077ba ;
+	font-weight:		 bold ;
+}
 
+/* Small Phone Screens */
 @media only screen and (max-device-width: 480px) {
 
-  h1 {
-    font-size:    22px ;
-  }
+	.maintitle {
+    font-size:    24px ;
+		position:			sticky;
+    padding:			6px 12px 0px 12px;
+    top:					0px;
+    background-color: #e3e3e3;
+}
 
   h2 {
-   font-size:     16px ;
+		font-size:	20px;
+    position:		sticky;
+		top:				35px;
+		padding:		6px 12px 6px 12px;
+		background-color: #e3e3e3;
+		border-bottom: #cbcbcb solid 1px ;
   }
+
+	h2.alert {
+		color:#dc0032 ;
+	}
+
+	.h3map {
+		font-size:	20px;
+		padding:		6px 24px 6px 24px;
+		background-color: #e3e3e3;
+		border-bottom: #cbcbcb solid 1px ;
+
+		flex: 1 1 auto;
+  }
+
+	.h3predict {
+		font-size:	20px;
+		padding:		6px 24px 6px 24px;
+		background-color: #f8ad0a;
+	}
+
+	.h3delivered {
+		font-size:	20px;
+		padding:		6px 24px 6px 24px;
+		background-color: #aafb9f;
+		border-bottom: #cbcbcb solid 1px ;
+
+		flex: 1 1 auto;
+  }
+
+	.monospaced {
+		padding:		 6px 12px 6px 12px ;
+	}
+
+	.monospaced:nth-child(odd)
+	{
+		background-color: #f9f9f9 ;		
+	}
+
+	.monospaced:nth-child(even)
+	{
+		background-color: #f5f5f5 ;
+	}
 
 	.monoblocked {
 		font-family:  inherit ;
 		display:			block ;
 	}
 
+	.pull-right {
+		float:				right ;
+	}
+
 	.optional {
 		display:			none ;
 	}
 
-}
+	.ifmap {
+		width: 				100% ;
+		height:				400px ;
+		border:				0px;
 
-@media only screen and (min-device-width: 481px) {
-
-	h1 {
-  	font-size:    24px ;
 	}
 
-	h2 {
- 	 font-size:     20px ;
+	.reviewarea {
+		font-size:				14px;
+		padding:					12px 24px 12px 24px;
+    background-color: #fcfff1;
+		border-bottom:		#cbcbcb solid 1px ;
+		flex: 1 1 auto;
+  }
+
+}
+
+/* Bigger Screens */
+@media only screen and (min-device-width: 481px) {
+
+	#main {
+		max-width:	800px ;
+		margin:			24px;
+		border:			1px solid darkgrey;
+	}
+
+	.maintitle {
+		height:				48px;
+    font-size:    25px ;
+		position:			sticky;
+    padding:			12px 24px 6px 24px;
+    top:					0px;
+    background-color: #e3e3e3;
+  }
+
+  h2 {
+		font-size:	20px;
+    position:		sticky;
+		top:				48px;
+		padding:		6px 24px 12px 24px;
+		background-color: #e3e3e3;
+		border-bottom: #cbcbcb solid 1px ;
+  }
+
+	.h3map {
+		font-size:	20px;
+		padding:		6px 24px 6px 24px;
+		background-color: #e3e3e3;
+		border-bottom: #cbcbcb solid 1px ;
+
+		flex: 1 1 auto;
+  }
+
+	.h3predict {
+		font-size:	20px;
+		padding:		6px 24px 6px 24px;
+		background-color: #f8ad0a;
+	}
+	
+	.h3delivered {
+		font-size:	20px;
+		padding:		6px 24px 6px 24px;
+		background-color: #aafb9f;
+		border-bottom: #cbcbcb solid 1px ;
+
+		flex: 1 1 auto;
+  }
+
+	.monospaced {
+		padding:		 6px 24px 6px 24px ;
+	}
+
+	.monospaced:nth-child(odd)
+	{
+		background-color: #f9f9f9 ;		
+	}
+
+	.monospaced:nth-child(even)
+	{
+		background-color: #eef0f3 ;
 	}
 
   .monoblocked {
@@ -95,6 +228,21 @@ h2 {
 
   .optional {
     display:      inline ;
+  }
+
+	.ifmap {
+		width: 				100% ;
+		height:				600px ;
+		border:				0px;
+
+	}
+
+	.reviewarea {
+		font-size:				16px;
+		padding:					12px 24px 12px 24px;
+    background-color: #fcfff1;
+		border-bottom:		#cbcbcb solid 1px ;
+		flex: 1 1 auto;
   }
 
 }

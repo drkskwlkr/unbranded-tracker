@@ -6,6 +6,7 @@
 // error_reporting(E_ALL) ;
 
 require_once( $_SERVER['DOCUMENT_ROOT'] . '/config.inc.php' ) ;
+require_once( $_SERVER['DOCUMENT_ROOT'] . '/feedback.php' ) ;
 
 /* Determine language */
 if (isset($_GET['lang']))
@@ -45,7 +46,7 @@ if ( isset ($_GET['p'] ) && !empty ($_GET['p'] ) )
 		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="cvc">CVC</span>. Хронология<span class="optional"> на събитията</span>:</h2>' ;
 		printCVC($parcel_id, $language_id) ;
 	} else {
-		echo '<h2>Не можем да разпознаем куриера по посочения номер на товарителница. <a href="' . SITE_CONTACT_URL . '">Свържете се с нас</a> за повече информация. </h2>' ;
+		echo '<h2>Не можем да разпознаем куриера по посочения номер на товарителница.<br> <a href="' . SITE_CONTACT_URL . '">Свържете се с нас</a> за повече информация. </h2>' ;
 		die() ;
 	}
 } else {
@@ -88,14 +89,60 @@ function printSpeedy($parcel_id, $language_id){
 		$opdate = $operations[$i]['dateTime'] ;
 		$opdate = strtotime($opdate) ;
 		$opdate = date('d.m.Y H:i', $opdate) ;
+		$opcode = $operations[$i]['operationCode'] ;
+
+		/* Checking for DPD Predict */
+		if (175 === $opcode)
+		{
+			$predict = $operations[$i]['comment'] ;
+		}
 
 		echo '<div class="monospaced">' ;
 		echo  $opdate ;
 		echo " &rarr; " ;
 		echo '<span class="monoblocked">' . $operations[$i]['description'] . '</span>' ;
 		echo '</div>' ;
-	}	
+	}
+	
+	/* Check if there is office location data */
+	$reqURL = SPEEDY_API_BASE . SPEEDY_API_CMD_RCV_OFFICE . '?userName=' . SPEEDY_USER . '&password=' . SPEEDY_PASS . '&language=' . $language_id . '&shipmentIds=' . $parcel_id ;
+
+	$curl = curl_init() ;
+	curl_setopt_array($curl, array(
+		CURLOPT_URL => $reqURL,
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_ENCODING => '',
+		CURLOPT_MAXREDIRS => 1,
+		CURLOPT_TIMEOUT => 0,
+		CURLOPT_FOLLOWLOCATION => true,
+		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		CURLOPT_CUSTOMREQUEST => 'GET',
+	)) ;
+	$response = curl_exec($curl) ;
+	$status = curl_getinfo($curl, CURLINFO_HTTP_CODE) ;
+	if ( $status != 200 )
+	{
+			die("Error: call to URL $reqURL failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl)) ;
+	}
+	curl_close($curl) ;
+
+	$data		= json_decode($response, true) ;
+
+	$collect	= $data['shipments']['0']['recipient']['pickupOfficeId'] ;
+
+	if (-14 === $opcode) { // Package has been delivered
+		echo '<h3 class="h3delivered">Пратката е доставена</h3>' . "\n" ;
+		feedbackRequestGoogle() ;
+	} elseif (isset($predict)) { // DPD Predict
+		echo '<h3 class="h3predict">' . $predict . '</h3>' ;
+	} elseif ($collect) { // Package has been sent to office and is not yet delivered
+		echo '<h3 class="h3map">Локация и работно време:</h3>' ;
+		echo '<div class="map">' ;
+		echo '<iframe class="ifmap" src="https://services.speedy.bg/officesmap?lang=' . $language_id . '&id=' . $collect . '">' ;
+		echo '</div>' ;
+	}
 }
+
 
 function printEcont($parcel_id, $language_id){
 
@@ -125,7 +172,14 @@ function printEcont($parcel_id, $language_id){
 	/* Interpret request output */
 	$response		= json_decode($json_response, true) ;
 	$operations	= $response['shipmentStatuses'][0]['status']['trackingEvents'] ;
+	
+	/* Check if shipment destination is an office */
+	if ("office" == $response['shipmentStatuses'][0]['status']['receiverDeliveryType'])
+	{
+		$rcvOffice	= $response['shipmentStatuses'][0]['status']['receiverOfficeCode'] ;
+	}	
 
+	/* Dictionary of shipment statuses */
 	$terms = [
 		"prepared"					=> "Поръчката е обработена.",
 		"courier"						=> "Приета от куриер",
@@ -168,8 +222,16 @@ function printEcont($parcel_id, $language_id){
 			echo '<span class="monoblocked">' . $terms[$operations[$i]['destinationType']]    . '</span> <span class="monoblocked">' . $operations[$i]['destinationDetails']   . '</span>' ;
 		}
 		echo '</div>' ;
+
+		/* If package has been delivered, show the delivery notice and ask for a review */
+		if ("client" === $operations[$i]['destinationType']) { // Package has been delivered
+			echo '<h3 class="h3delivered">Пратката е доставена</h3>' . "\n" ;
+		feedbackRequestGoogle() ;
+		}
 	}
+
 }
+
 
 function printA1post($parcel_id, $language_id){
 
@@ -205,9 +267,18 @@ function printA1post($parcel_id, $language_id){
 		echo  $opdate ;
 		echo " &rarr; " ;
 		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
+		echo strtok($opstatus, " ") ;
 		echo '</div>' ;
+
+		/* If package has been delivered, show the delivery notice and ask for a review */
+		if ("DELIVERED" == strtok($opstatus, " ")) { // Package has been delivered
+			echo '<h3 class="h3delivered">Пратката е доставена</h3>' . "\n" ;
+			feedbackRequestGoogle() ;
+			break ;
+		}
 	}
 }
+
 
 function printLeoexpres($parcel_id){
 
@@ -237,8 +308,16 @@ function printLeoexpres($parcel_id){
 		echo " &rarr; " ;
 		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
 		echo '</div>' ;
+
+		if (strpos($opstatus, "Доставена до клиент")) { // Package has been delivered
+			echo '<h3 class="h3delivered">Пратката е доставена</h3>' . "\n" ;
+			feedbackRequestGoogle() ;
+		}
+	
 	}
+
 }
+
 
 function printCVC($parcel_id, $language_id) {
 
@@ -277,5 +356,14 @@ function printCVC($parcel_id, $language_id) {
 		echo " &rarr; " ;
 		echo '<span class="monoblocked">' . $operations[$i]['display'] . '</span> <span class="monoblocked">' . $operations[$i]['station'] . '</span>' ;
 		echo '</div>' ;
+
+		/* If package has been delivered, show the delivery notice and ask for a review */
+		if ("Доставена - без възражения" === $operations[$i]['display']) { // Package has been delivered
+			echo '<h3 class="h3delivered">Пратката е доставена</h3>' . "\n" ;
+			feedbackRequestGoogle() ;
+			break ;
+		}
 	}
+
 }
+
