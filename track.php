@@ -364,5 +364,69 @@ function printCVC($parcel_id, $language_id) {
 }
 
 function printEltaGR($parcel_id) {
+	$callEltaTrack  = 'https://www.elta.gr/en-us/personal/tracktrace.aspx?qc=' ;
+	$reqURL         = $callEltaTrack . $parcel_id ;
+	$html           = @file_get_contents ($reqURL) ;
 
+	if($html === FALSE)
+	{
+		echo '<h2 class="alert">Сайтът на спедитора ограничава заявките. Опитайте да опресните страницата след няколко минути.</h2>' ;
+		die();
+	}
+
+  $trim_start     = '<div id="printme">' ;
+	$trim_start_len	= strlen($trim_start) ;
+	$trim_end				= '<br/><br/>' ;
+  $output         = substr(strstr(strstr($html, $trim_start, false), $trim_end, true), $trim_start_len) ;
+	$output					= str_replace(' & ', ' &amp; ', $output) ;
+
+  $DOM            = new DOMDocument() ;
+  $DOM->loadHTML('<?xml encoding="UTF-8">' . $output) ; // Encoding is very important!
+
+	$rows				= $DOM->getElementsByTagName('tr') ;
+	$rows_count = $rows->length ;
+	$progress		= array() ;
+	$record			= array() ;
+
+	foreach ($rows as $row) {
+		$cells = $row -> getElementsByTagName('td');
+		foreach ($cells as $cell) {
+			if (isset($cell->nodeValue))
+			{
+				array_push($record, $cell->nodeValue) ;
+			}	else {
+				array_push($record, "--") ;
+			}
+		}
+		array_push ($progress, $record) ;
+		$record = [] ;
+	}
+
+	// Remove last (first two records)
+	$start = count($progress) - 2 ;
+	// and skipt the first (latest) record
+
+	for ($i = $start; $i > 1; $i--) {
+
+		// Fix date formatting (wrong day and month)
+		$dateGreek = strstr($progress[$i][0], ',', true) ;
+		$timeGreek = strstr($progress[$i][0], ',') ;
+		$dateArray = explode('/', $dateGreek) ;
+		$tmp = $dateArray[0] ;
+		$dateArray[0] = $dateArray[1] ;
+		$dateArray[1] = $tmp ;
+		unset($tmp) ;
+		$opdate = implode('/', $dateArray) . $timeGreek ;
+
+		$opdate		= date('d.m.Y H:i', strtotime($opdate)) ;
+		$oploc		= $progress[$i][1] ;
+		$opstatus	= $progress[$i][2] ;
+
+		echo '<div class="monospaced">' ;
+		echo '<span class="timestamp">' . $opdate . '</span>' ;
+		echo " &rarr; " ;
+		echo '<span style="float: right;">' . $oploc . '</span>' ;
+		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
+		echo '</div>' ;
+	}
 }

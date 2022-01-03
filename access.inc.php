@@ -31,6 +31,7 @@ define('PATTERN_ECONT',				'/^(1)[0-9]{12}$/') ;
 define('PATTERN_A1POST',			'/^(UR|LY|RS)[0-9]{9}(DE)$/') ;
 define('PATTERN_LEOEXPRES',		'/^(6|7)[0-9]{7}$/') ;
 define('PATTERN_CVC',		      '/^[0]{2}(09|10)[0-9]{4}$/') ;
+define('PATTERN_ELTAGR',      '/^(HB)[0-9]{9}(GR)$/') ;
 define('PATTERN_BGPOST',			'/^(CP|VV|RI|EB|DB)[0-9]{9}(BG)$/') ;
 
 /* ************************************************************************* */
