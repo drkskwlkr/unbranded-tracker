@@ -96,10 +96,12 @@ define ('LANGUAGE_DEFAULT',	"bg") ; // Determine default language for return que
 
 ## Демонстрация
 Ако искате да видите как изглежда приложението без да сваляте и хоствате файлове, можете да кликнете върху някой от следните линкове:
-- [Примерен резултат с Еконт](https://utdemo.webstage.dev/?p=1054219036007) 
-- [Примерен резултат с A1 Post](https://utdemo.webstage.dev/?p=RS082678975DE)
-- [Примерен резултат с Leo Expres](https://utdemo.webstage.dev/?p=69904612)
-- [Примерен резултат със CVC](https://utdemo.webstage.dev/?p=00090798)
+- [Примерен резултат с Еконт](https://utdemo.webstage.dev/1054219036007) 
+- [Примерен резултат с A1 Post](https://utdemo.webstage.dev/RS082678975DE)
+- [Примерен резултат с Leo Expres](https://utdemo.webstage.dev/69904612)
+- [Примерен резултат със CVC](https://utdemo.webstage.dev/00090798)
+- [Примерен резултат с Български пощи](https://utdemo.webstage.dev/CP112509907BG)
+- [Примерен резултат с Hellenic Post](https://utdemo.webstage.dev/HB740041740GR)
 
 Примерен резултат за Спиди не мога да предоставя, понеже методът за извличане на данни чрез API при тях изисква оторизация и резултатът е ограничен до товарителници, създадени със същия API потребител. Но страницата изглежда по абсолютно същия начин.
 
