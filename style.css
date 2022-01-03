@@ -122,7 +122,9 @@ h2.alert {
   }
 
 	.monospaced {
-		padding:		 6px 12px 6px 12px ;
+		padding:		6px 12px 6px 12px ;
+		display:		block;
+		opacity:		0.75;
 	}
 
 	.monospaced:nth-child(odd)
@@ -216,7 +218,9 @@ h2.alert {
   }
 
 	.monospaced {
-		padding:		 6px 24px 6px 24px ;
+		padding:		6px 24px 6px 24px ;
+		display:		block ;
+		opacity:		0.75 ;
 	}
 
 	.monospaced:nth-child(odd)

@@ -46,6 +46,9 @@ if ( isset ($_GET['p'] ) && !empty ($_GET['p'] ) )
 	} elseif (preg_match(PATTERN_CVC, $parcel_id)) {
 		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="cvc">CVC</span>. Хронология<span class="optional"> на събитията</span>:</h2>' ;
 		printCVC($parcel_id, $language_id) ;
+	} elseif (preg_match(PATTERN_ELTAGR, $parcel_id)) {
+		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="elta">Hellenic Post (ΕΛΤΑ)</span>. Хронология<span class="optional"> на събитията</span>:</h2>' ;
+		printEltaGR($parcel_id) ;
 	} else {
 		echo '<h2>Не можем да разпознаем куриера по посочения номер на товарителница.<br> <a href="' . SITE_CONTACT_URL . '">Свържете се с нас</a> за повече информация. </h2>' ;
 		die() ;
@@ -358,4 +361,8 @@ function printCVC($parcel_id, $language_id) {
 		break ;
 		}
 	}
+}
+
+function printEltaGR($parcel_id) {
+
 }
