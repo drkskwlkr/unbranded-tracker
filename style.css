@@ -121,6 +121,10 @@ h2.alert {
 		padding:		 6px 12px 6px 12px ;
 	}
 
+	.monospaced > span {
+		display: inline-block ;
+	}
+
 	.monospaced:nth-child(odd)
 	{
 		background-color: #f9f9f9 ;		
@@ -229,7 +233,8 @@ h2.alert {
   .monoblocked {
     display:      inline-block ;
 		font-family:  inherit ;
-  }
+		float:				right ;
+	}
 
   .optional {
     display:      inline ;

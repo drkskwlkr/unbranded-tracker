@@ -99,7 +99,7 @@ function printSpeedy($parcel_id, $language_id){
 		}
 
 		echo '<div class="monospaced">' ;
-		echo  $opdate ;
+		echo '<span class="timestamp">' . $opdate . '</span>' ;
 		echo " &rarr; " ;
 		echo '<span class="monoblocked">' . $operations[$i]['description'] . '</span>' ;
 		echo '</div>' ;
@@ -213,7 +213,7 @@ function printEcont($parcel_id, $language_id){
 		$opdate = date('d.m.Y H:i', $opdate) ;
 
 		echo '<div class="monospaced">' ;
-		echo $opdate ;
+		echo '<span class="timestamp">' . $opdate . '</span>' ;
 		echo " &rarr; " ;
 		if ('en' == $language_id) {
 			echo '<span class="monoblocked">' . $terms_en[$operations[$i]['destinationType']] . '</span> <span class="monoblocked">' . $operations[$i]['destinationDetailsEn'] . '</span>' ;
@@ -263,7 +263,7 @@ function printA1post($parcel_id, $language_id){
 		$opstatus	= substr($output, 16) ;
 
 		echo '<div class="monospaced">' ;
-		echo  $opdate ;
+		echo '<span class="timestamp">' . $opdate . '</span>' ;
 		echo " &rarr; " ;
 		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
 		echo '</div>' ;
@@ -301,7 +301,7 @@ function printLeoexpres($parcel_id){
 		$opstatus	= $actions[$i]->textContent ;
 
 		echo '<div class="monospaced">' ;
-		echo  $opdate ;
+		echo '<span class="timestamp">' . $opdate . '</span>' ;
 		echo " &rarr; " ;
 		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
 		echo '</div>' ;
@@ -346,7 +346,7 @@ function printCVC($parcel_id, $language_id) {
 		$opdate = date('d.m.Y H:i', $opdate) ;
 
 		echo '<div class="monospaced">' ;
-		echo $opdate ;
+		echo '<span class="timestamp">' . $opdate . '</span>' ;
 		echo " &rarr; " ;
 		echo '<span class="monoblocked">' . $operations[$i]['display'] . '</span> <span class="monoblocked">' . $operations[$i]['station'] . '</span>' ;
 		echo '</div>' ;
