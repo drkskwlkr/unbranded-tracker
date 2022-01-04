@@ -16,12 +16,14 @@ html, body {
 }
 
 h1 {
-	padding-bottom:		12px ;
+	z-index:				1000 ;
+	padding-bottom:	12px ;
 }
 
 h2 {
+	z-index:				1000 ;
 	font-weight:		400 ;
-	padding-bottom:		12px ;
+	padding-bottom:	12px ;
 }
 
 h2.alert {
@@ -74,7 +76,7 @@ h2.alert {
 }
 
 /* Small Phone Screens */
-@media only screen and (max-device-width: 480px) {
+@media only screen and (max-device-width: 767px) {
 
   h1.maintitle {
     font-size:    24px ;
@@ -167,7 +169,7 @@ h2.alert {
 }
 
 /* Bigger Screens */
-@media only screen and (min-device-width: 481px) {
+@media only screen and (min-device-width: 768px) {
 
 	#main {
 		max-width:	800px ;
