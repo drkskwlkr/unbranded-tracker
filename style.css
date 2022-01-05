@@ -124,9 +124,12 @@ h2.alert {
 		padding:		6px 24px 6px 24px;
 		background-color: #aafb9f;
 		border-bottom: #cbcbcb solid 1px ;
-
 		flex: 1 1 auto;
   }
+
+	.h3delivered::before {
+		content: "✔ " ;
+	}
 
 	.monospaced {
 		padding:		6px 12px 6px 12px ;
