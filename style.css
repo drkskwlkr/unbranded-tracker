@@ -1,24 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,400&display=swap') ;
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300&display=swap') ;
 
 * {
 
-	margin:			0 ;
-	padding:		0 ;
-	box-sizing:		border-box ;
+	margin:					0 ;
+	padding:				0 ;
+	box-sizing:			border-box ;
 	font-family:		'Roboto Condensed', sans-serif ;
 
 }
 
 html, body {
 	background:		#eef0f3 ;
-	position:		relative ;
+	position:			relative ;
 }
 
-	div.header-sticky {
+div.header-sticky {
+	z-index: 					9999 ;
 	position:					sticky;
 	top:							0px;
-	padding:					6px 24px 12px 24px;
+	padding:					18px 24px ;
 	background-color: #e3e3e3;
 	border-bottom:		#cbcbcb solid 1px ;
 }
@@ -35,11 +36,42 @@ h2.alert {
 	color:#dc0032 ;
 }
 
-.monospaced {
+div.monospaced {
 	font-family:			'JetBrains Mono', monospace ;
 	border-bottom:		1px dotted silver ;
 	padding:					12px 24px ;
+	display:					block ;
+	opacity:					0.75 ;
 }
+
+div.monospaced:nth-child(odd)
+{
+	background-color: #f9f9f9 ;		
+}
+
+div.monospaced:nth-child(even)
+{
+	background-color: #eef0f3 ;
+}
+
+span.monoblocked {
+	display:      inline-block ;
+	font-family:  inherit ;
+}
+
+span.timestamp {
+	font-family:  inherit ;
+	font-weight: 	bold ;
+}
+
+span.timestamp::after {
+	content: " ➡"
+}
+
+span.status {
+	font-family:  inherit ;
+}
+
 
 .pull-right {
 	float:				right ;
@@ -127,41 +159,10 @@ h2.alert {
 		content: "✔ " ;
 	}
 
-	span.monospaced {
-		padding:		6px 12px 6px 12px ;
-		display:		block;
-		opacity:		0.75;
-	}
-
-	span.monospaced:nth-child(odd)
-	{
-		background-color: #f9f9f9 ;		
-	}
-
-	span.monospaced:nth-child(even)
-	{
-		background-color: #f5f5f5 ;
-	}
-
-	span.monoblocked {
-		font-family:  inherit ;
-		/*
-		display:			block ;
-		*/
-		display: inline-block ;
-	}
-
 	span.timestamp {
-		font-weight: 	bold ;
-		background: #3c3c3c;
-		color: white;
 		border-radius: 3px;
 		margin: 0 2px 0 0;
 		padding: 2px;
-	}
-
-	span.timestamp::after {
-		content: "> "
 	}
 
 	span.optional {
@@ -240,25 +241,10 @@ h2.alert {
 		flex: 1 1 auto;
   }
 
-	.monospaced {
-		padding:		6px 24px 6px 24px ;
-		display:		block ;
-		opacity:		0.75 ;
-	}
-
-	.monospaced:nth-child(odd)
-	{
-		background-color: #f9f9f9 ;		
-	}
-
-	.monospaced:nth-child(even)
-	{
-		background-color: #eef0f3 ;
-	}
-
-  .monoblocked {
-    display:      inline-block ;
-		font-family:  inherit ;
+		span.timestamp {
+		border-radius: 3px;
+		margin: 0 2px 0 0;
+		padding: 2px;
 	}
 
   .optional {

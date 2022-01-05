@@ -108,7 +108,6 @@ function printSpeedy($parcel_id, $language_id) {
 
 		echo '<div class="monospaced">' ;
 		echo '<span class="timestamp">' . $opdate . '</span>' ;
-		// echo " &rarr; " ;
 		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
 		echo '</div>' ;
 	}
@@ -229,7 +228,6 @@ function printEcont($parcel_id, $language_id) {
 
 		echo '<div class="monospaced">' ;
 		echo '<span class="timestamp">' . $opdate . '</span>' ;
-		// echo " &rarr; " ;
 		echo '<span class="monoblocked">' . $opstatus . '</span> <span class="monoblocked" style="display: block; opacity: 0.75; ">' . $oplocation . '</span>' ;
 		echo '</div>' ;
 
@@ -274,7 +272,6 @@ function printA1post($parcel_id, $language_id) {
 
 		echo '<div class="monospaced">' ;
 		echo '<span class="timestamp">' . $opdate . '</span>' ;
-		// echo " &rarr; " ;
 		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
 		echo '</div>' ;
 		
@@ -312,7 +309,6 @@ function printLeoexpres($parcel_id) {
 
 		echo '<div class="monospaced">' ;
 		echo '<span class="timestamp">' . $opdate . '</span>' ;
-		// echo " &rarr; " ;
 		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
 		echo '</div>' ;
 		
@@ -357,7 +353,6 @@ function printCVC($parcel_id, $language_id) {
 
 		echo '<div class="monospaced">' ;
 		echo '<span class="timestamp">' . $opdate . '</span>' ;
-		// echo " &rarr; " ;
 		echo '<span class="monoblocked">' . $operations[$i]['display'] . '</span> <span class="monoblocked">' . $operations[$i]['station'] . '</span>' ;
 		echo '</div>' ;
 		
@@ -431,7 +426,6 @@ function printEltaGR($parcel_id) {
 
 		echo '<div class="monospaced">' ;
 		echo '<span class="timestamp">' . $opdate . '</span>' ;
-		// echo " &rarr; " ;
 		echo '<span style="float: right;">' . $oploc . '</span>' ;
 		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
 		echo '</div>' ;
@@ -492,7 +486,6 @@ function printBGPost($parcel_id) {
 
 		echo '<div class="monospaced">' ;
 		echo '<span class="timestamp">' . $opdate . '</span>' ;
-		// echo " &rarr; " ;
 		echo '<span class="status">' . $opstatus . '</span>' ;
     echo '<span class="monoblocked" style="display: block; opacity: 0.75; "><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;' . $opcountry . ' » ' . $oplocation . '</span>' ;
     echo '</div>' ;
@@ -550,7 +543,6 @@ function printEMSBulpost($parcel_id) {
 
 		echo '<div class="monospaced">' ;
 		echo '<span class="timestamp">' . $opdate . '</span>' ;
-		// echo " &rarr; " ;
 		echo '<span class="status">' . $oplocation . '</span>' ;
     echo '<span class="monoblocked" style="display: block; opacity: 0.75; "><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;' . $opcountry . '</span>' ;
     echo '</div>' ;
