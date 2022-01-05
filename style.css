@@ -127,23 +127,23 @@ h2.alert {
 		content: "✔ " ;
 	}
 
-	.monospaced {
+	span.monospaced {
 		padding:		6px 12px 6px 12px ;
 		display:		block;
 		opacity:		0.75;
 	}
 
-	.monospaced:nth-child(odd)
+	span.monospaced:nth-child(odd)
 	{
 		background-color: #f9f9f9 ;		
 	}
 
-	.monospaced:nth-child(even)
+	span.monospaced:nth-child(even)
 	{
 		background-color: #f5f5f5 ;
 	}
 
-	.monoblocked {
+	span.monoblocked {
 		font-family:  inherit ;
 		/*
 		display:			block ;
@@ -151,7 +151,7 @@ h2.alert {
 		display: inline-block ;
 	}
 
-	.timestamp {
+	span.timestamp {
 		font-weight: 	bold ;
 		background: #3c3c3c;
 		color: white;
@@ -160,7 +160,11 @@ h2.alert {
 		padding: 2px;
 	}
 
-	.optional {
+	span.timestamp::after {
+		content: "> "
+	}
+
+	span.optional {
 		display:			none ;
 	}
 
