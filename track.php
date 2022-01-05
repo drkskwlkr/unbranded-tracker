@@ -30,31 +30,31 @@ if ( isset ($_GET['p'] ) && !empty ($_GET['p'] ) ) {
 	// ******************************************************************************
 	
 	if (preg_match(PATTERN_SPEEDY, $parcel_id)) {
-		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="speedy">Спиди</span>. Хронология<span class="optional"> на събитията</span>:</h2>' ;
+		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="speedy">Спиди</span>. Хронология<span class="optional"> на събитията</span>:</h2></div>' ;
 		printSpeedy($parcel_id, $language_id) ;
 	}	elseif (preg_match(PATTERN_ECONT, $parcel_id)) {
-		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="econt">Еконт</span>. Хронология<span class="optional"> на събитията</span>:</h2>' ;
+		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="econt">Еконт</span>. Хронология<span class="optional"> на събитията</span>:</h2></div>' ;
 		printEcont($parcel_id, $language_id) ;
 	} elseif (preg_match(PATTERN_A1POST, $parcel_id)) {
-		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="a1post">A1 Post</span>. Хронология<span class="optional"> на събитията</span>:</h2>' ;
+		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="a1post">A1 Post</span>. Хронология<span class="optional"> на събитията</span>:</h2></div>' ;
 		printA1post($parcel_id, $language_id) ;
 	} elseif (preg_match(PATTERN_LEOEXPRES, $parcel_id)) {
-		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="leoexpres">Leo Expres</span>. Хронология<span class="optional"> на събитията</span>:</h2>' ;
+		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="leoexpres">Leo Expres</span>. Хронология<span class="optional"> на събитията</span>:</h2></div>' ;
 		printLeoexpres($parcel_id) ;
 	} elseif (preg_match(PATTERN_CVC, $parcel_id)) {
-		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="cvc">CVC</span>. Хронология<span class="optional"> на събитията</span>:</h2>' ;
+		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="cvc">CVC</span>. Хронология<span class="optional"> на събитията</span>:</h2></div>' ;
 		printCVC($parcel_id, $language_id) ;
 	} elseif (preg_match(PATTERN_ELTAGR, $parcel_id)) {
-		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="elta">Hellenic Post (ΕΛΤΑ)</span>. Хронология<span class="optional"> на събитията</span>:</h2>' ;
+		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="elta">Hellenic Post (ΕΛΤΑ)</span>. Хронология<span class="optional"> на събитията</span>:</h2></div>' ;
 		printEltaGR($parcel_id) ;
 	} elseif (preg_match(PATTERN_BGPOST, $parcel_id)) {
-		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="bgpost">Български пощи</span>. Хронология<span class="optional"> на събитията</span>:</h2>' ;
+		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="bgpost">Български пощи</span>. Хронология<span class="optional"> на събитията</span>:</h2></div>' ;
 		printBGPost($parcel_id) ;
 	} elseif (preg_match(PATTERN_EMSBULPOST, $parcel_id)) {
-		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="emsbulpost">EMS Bulpost</span>. Хронология<span class="optional"> на събитията</span>:</h2>' ;
+		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="emsbulpost">EMS Bulpost</span>. Хронология<span class="optional"> на събитията</span>:</h2></div>' ;
 		printEMSBulpost($parcel_id) ;
 	} else {
-		echo '<h2>Не можем да разпознаем куриера по посочения номер на товарителница.<br> <a href="' . SITE_CONTACT_URL . '">Свържете се с нас</a> за повече информация. </h2>' ;
+		echo '<h2>Не можем да разпознаем куриера по посочения номер на товарителница.<br> <a href="' . SITE_CONTACT_URL . '">Свържете се с нас</a> за повече информация. </h2></div>' ;
 		die() ;
 	}
 } else {
@@ -543,14 +543,14 @@ function printEMSBulpost($parcel_id) {
 
   for ($i = $iterations; $i > 0; $i--) {
 
-    $opdate     = $progress[$i][0] ;
+    $opdate     = date('d.m.Y H:i', strtotime($progress[$i][0])) ; // Drop seconds from timestamp
     $opcountry  = $progress[$i][1] ;
     $oplocation = $progress[$i][2] ;
     $opstatus   = $progress[$i][3] ; // Do not use
 
 		echo '<div class="monospaced">' ;
-		echo '<span class="timestamp">' . $opdate . '</span>' ;
-		echo " &rarr; " ;
+		echo '<span class="timestamp">' . $opdate . '&nbsp;</span>' ;
+		//echo " &rarr; " ;
 		echo '<span class="status">' . $oplocation . '</span>' ;
     echo '<span class="monoblocked" style="display: block; opacity: 0.75; "><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;' . $opcountry . '</span>' ;
     echo '</div>' ;

@@ -15,15 +15,20 @@ html, body {
 	position:		relative ;
 }
 
+	div.header-sticky {
+	position:					sticky;
+	top:							0px;
+	padding:					6px 24px 12px 24px;
+	background-color: #e3e3e3;
+	border-bottom:		#cbcbcb solid 1px ;
+}
+
 h1 {
-	z-index:				1000 ;
 	padding-bottom:	12px ;
 }
 
 h2 {
-	z-index:				1000 ;
 	font-weight:		400 ;
-	padding-bottom:	12px ;
 }
 
 h2.alert {
@@ -31,9 +36,9 @@ h2.alert {
 }
 
 .monospaced {
-	font-family:		'JetBrains Mono', monospace ;
+	font-family:			'JetBrains Mono', monospace ;
 	border-bottom:		1px dotted silver ;
-	padding:		6px 0 6px 0 ;
+	padding:					12px 24px ;
 }
 
 .pull-right {
@@ -85,19 +90,10 @@ h2.alert {
 
   h1.maintitle {
     font-size:    24px ;
-		position:			sticky;
-    padding:			6px 12px 0px 12px;
-    top:					0px;
-    background-color: #e3e3e3;
   }
 
   h2 {
 		font-size:	20px;
-    position:		sticky;
-		top:				35px;
-		padding:		6px 12px 6px 12px;
-		background-color: #e3e3e3;
-		border-bottom: #cbcbcb solid 1px ;
   }
 
 	h2.alert {
@@ -155,6 +151,15 @@ h2.alert {
 		display: inline-block ;
 	}
 
+	.timestamp {
+		font-weight: 	bold ;
+		background: #3c3c3c;
+		color: white;
+		border-radius: 3px;
+		margin: 0 2px 0 0;
+		padding: 2px;
+	}
+
 	.optional {
 		display:			none ;
 	}
@@ -186,21 +191,25 @@ h2.alert {
 	}
 
   h1.maintitle {
-		height:				48px;
     font-size:    25px ;
+		/*
+		height:				48px;
 		position:			sticky;
     padding:			12px 24px 6px 24px;
     top:					0px;
     background-color: #e3e3e3;
+		*/
   }
 
   h2 {
 		font-size:	20px;
+		/*
     position:		sticky;
 		top:				48px;
 		padding:		6px 24px 12px 24px;
 		background-color: #e3e3e3;
 		border-bottom: #cbcbcb solid 1px ;
+		*/
   }
 
 	.h3map {
