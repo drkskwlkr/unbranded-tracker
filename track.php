@@ -52,6 +52,9 @@ if ( isset ($_GET['p'] ) && !empty ($_GET['p'] ) )
 	} elseif (preg_match(PATTERN_BGPOST, $parcel_id)) {
 		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="bgpost">Български пощи</span>. Хронология<span class="optional"> на събитията</span>:</h2>' ;
 		printBGPost($parcel_id) ;
+	} elseif (preg_match(PATTERN_EMSBULPOST, $parcel_id)) {
+		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="emsbulpost">EMS Bulpost</span>. Хронология<span class="optional"> на събитията</span>:</h2>' ;
+		printBGPost($parcel_id) ;
 	} else {
 		echo '<h2>Не можем да разпознаем куриера по посочения номер на товарителница.<br> <a href="' . SITE_CONTACT_URL . '">Свържете се с нас</a> за повече информация. </h2>' ;
 		die() ;
@@ -444,6 +447,71 @@ function printBGPost($parcel_id) {
 		echo '<h2 class="alert">Сайтът на спедитора ограничава заявките. Опитайте да опресните страницата след няколко минути.</h2>' ;
 		die();
 	}
+
+  $trim_start     = '<td class="tabproperty"><wap> </wap> ' ;
+	$trim_start_len	= strlen($trim_start) ;
+	$trim_end				= '</table></td>' ;
+  $output         = substr(strstr(strstr($html, $trim_start, false), $trim_end, true), $trim_start_len) ;
+
+  // var_dump ($output) ;
+  
+  $DOM            = new DOMDocument() ;
+  $DOM->loadHTML('<?xml encoding="UTF-8">' . $output) ; // Encoding is very important!
+
+	$rows				= $DOM->getElementsByTagName('tr') ;
+	$rows_count = $rows->length ;
+	
+  $progress		= array() ;
+	$record			= array() ;
+  
+  foreach ($rows as $row) {
+		$cells = $row -> getElementsByTagName('td');
+
+		foreach ($cells as $cell) {
+			if (isset($cell->nodeValue))
+			{
+				array_push($record, $cell->nodeValue) ;
+			}	else {
+				array_push($record, "--") ;
+			}
+		}
+		array_push ($progress, $record) ;
+		$record = [] ;
+	}
+
+	$iterations = count($progress) ;
+
+  // Remove top two rows (used for table headers)
+	for ($i = 2; $i < $iterations; $i++) {
+
+    $opdate     = $progress[$i][0] ;
+    $opcountry  = $progress[$i][1] ;
+    $oplocation = $progress[$i][2] ;
+    $opstatus   = $progress[$i][3] ;
+
+		echo '<div class="monospaced">' ;
+		echo '<span class="timestamp">' . $opdate . '</span>' ;
+		echo " &rarr; " ;
+		echo '<span class="status">' . $opstatus . '</span>' ;
+    echo '<span class="monoblocked" style="display: block; opacity: 0.75; ">&nbsp;' . $opcountry . ' » ' . $oplocation . '</span>' ;
+    echo '</div>' ;
+
+	}
+}
+
+function printEMSBulpost($parcel_id) {
+	$callEMSBulpostTrack  = 'https://icis.bgpost.bg/BulPostICIS-web-pub/track.jsf?ShipmentNo=' ;
+	$reqURL           = $callEMSBulpostTrack . $parcel_id ;
+	$html             = @file_get_contents ($reqURL) ;
+
+	if($html === FALSE)
+	{
+		echo '<h2 class="alert">Сайтът на спедитора ограничава заявките. Опитайте да опресните страницата след няколко минути.</h2>' ;
+		die();
+	}
+
+	echo $html ;
+	die() ;
 
   $trim_start     = '<td class="tabproperty"><wap> </wap> ' ;
 	$trim_start_len	= strlen($trim_start) ;

@@ -32,7 +32,8 @@ define('PATTERN_A1POST',			'/^(UR|LY|RS)[0-9]{9}(DE)$/') ;
 define('PATTERN_LEOEXPRES',		'/^(6|7)[0-9]{7}$/') ;
 define('PATTERN_CVC',		      '/^[0]{2}(09|10)[0-9]{4}$/') ;
 define('PATTERN_ELTAGR',      '/^(HB)[0-9]{9}(GR)$/') ;
-define('PATTERN_BGPOST',			'/^(CP|VV|RI|EB|DB)[0-9]{9}(BG)$/') ;
+define('PATTERN_BGPOST',			'/^(CP|RI|CV|VV)[0-9]{9}(BG)$/') ;
+define('PATTERN_EMSBULPOST',	'/^(ED|EE)[0-9]{9}(BG)$/') ;
 
 /* ************************************************************************* */
 /*
@@ -48,10 +49,13 @@ CVC uses uses 8-digit tracking numbers; we presume they increase linearly and
 are currently in the 90,000 — 100,000 range.
 BG Post uses UPU format as well. Confirmed codes:
 	CP: Tracked Int'l parcel
-	VV: Tracked Int'l parcel (valuable, with declared value)
+	CV: Tracked Int'l parcel (valuable, with declared value)
 	RI: Tracked Int'l mail or small package; requires signature on delivery
-	EB: EMS package (will be tracked separately!)
+	VV: Tracked Int'l mail or small package; (valuable, with declared value)
+	Trailing marker is always BG
+EMS Bulpost uses UPU format as well. Confirmed codes:
+	ED, EE: EMS package (will be tracked separately!)
 	DB: Domestic Courier Service (rarely used)
 	Trailing marker is always BG
-*/
+	*/
 /* ************************************************************************* */
