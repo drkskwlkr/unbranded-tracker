@@ -17,8 +17,10 @@
 <body>
 	<!-- Main Area Begin -->
 	<section id="main">
-		<h1 class="maintitle">Информация за <span class="optional"> движението на </span>Вашата пратка</h1>		
-		<?php require_once( $_SERVER['DOCUMENT_ROOT'] . '/track.php') ; ?>
+		<div class="header-sticky">
+			<h1 class="maintitle">Информация за <span class="optional"> движението на </span>Вашата пратка</h1>		
+			<?php require_once( $_SERVER['DOCUMENT_ROOT'] . '/track.php') ; ?>
+		</div>
 	</section>
 	<!-- Main Area End -->
 
