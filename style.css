@@ -55,8 +55,12 @@ div.monospaced:nth-child(even)
 }
 
 span.monoblocked {
-	/* display:      inline-block ; */
 	display:      block ;
+	font-family:  inherit ;
+}
+
+span.monoblocked-inline {
+	display:      inline!important ;
 	font-family:  inherit ;
 }
 

@@ -108,7 +108,7 @@ function printSpeedy($parcel_id, $language_id) {
 
 		echo '<div class="monospaced">' ;
 		echo '<span class="timestamp">' . $opdate . '</span>' ;
-		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
+		echo '<span class="monoblocked-inline">' . $opstatus . '</span>' ;
 		echo '</div>' ;
 	}
 	
@@ -228,7 +228,7 @@ function printEcont($parcel_id, $language_id) {
 
 		echo '<div class="monospaced">' ;
 		echo '<span class="timestamp">' . $opdate . '</span>' ;
-		echo '<span class="monoblocked">' . $opstatus . '</span> <span class="monoblocked" style="display: block; opacity: 0.75; ">' . $oplocation . '</span>' ;
+		echo '<span class="monoblocked-inline">' . $opstatus . '</span> <span class="monoblocked">' . $oplocation . '</span>' ;
 		echo '</div>' ;
 
 		/* If package has been delivered, show the delivery notice and ask for a review */
@@ -272,7 +272,7 @@ function printA1post($parcel_id, $language_id) {
 
 		echo '<div class="monospaced">' ;
 		echo '<span class="timestamp">' . $opdate . '</span>' ;
-		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
+		echo '<span class="monoblocked-inline">' . $opstatus . '</span>' ;
 		echo '</div>' ;
 		
 		/* If package has been delivered, show the delivery notice and ask for a review */
@@ -309,7 +309,7 @@ function printLeoexpres($parcel_id) {
 
 		echo '<div class="monospaced">' ;
 		echo '<span class="timestamp">' . $opdate . '</span>' ;
-		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
+		echo '<span class="monoblocked-inline">' . $opstatus . '</span>' ;
 		echo '</div>' ;
 		
 		if (strpos($opstatus, "Доставена до клиент")) { // Package has been delivered
@@ -353,7 +353,7 @@ function printCVC($parcel_id, $language_id) {
 
 		echo '<div class="monospaced">' ;
 		echo '<span class="timestamp">' . $opdate . '</span>' ;
-		echo '<span class="monoblocked">' . $operations[$i]['display'] . '</span> <span class="monoblocked">' . $operations[$i]['station'] . '</span>' ;
+		echo '<span class="monoblocked-inline">' . $operations[$i]['display'] . '</span> <span class="monoblocked">' . $operations[$i]['station'] . '</span>' ;
 		echo '</div>' ;
 		
 		/* If package has been delivered, show the delivery notice and ask for a review */
@@ -427,7 +427,7 @@ function printEltaGR($parcel_id) {
 		echo '<div class="monospaced">' ;
 		echo '<span class="timestamp">' . $opdate . '</span>' ;
 		echo '<span style="float: right;">' . $oploc . '</span>' ;
-		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
+		echo '<span class="monoblocked-inline">' . $opstatus . '</span>' ;
 		echo '</div>' ;
 	}
 }
@@ -487,7 +487,7 @@ function printBGPost($parcel_id) {
 		echo '<div class="monospaced">' ;
 		echo '<span class="timestamp">' . $opdate . '</span>' ;
 		echo '<span class="status">' . $opstatus . '</span>' ;
-    echo '<span class="monoblocked" style="display: block; opacity: 0.75; "><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;' . $opcountry . ' » ' . $oplocation . '</span>' ;
+    echo '<span class="monoblocked" style=opacity: 0.75; "><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;' . $opcountry . ' » ' . $oplocation . '</span>' ;
     echo '</div>' ;
 
 	}
