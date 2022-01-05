@@ -10,8 +10,7 @@ require_once( $_SERVER['DOCUMENT_ROOT'] . '/config.inc.php' ) ;
 require_once( $_SERVER['DOCUMENT_ROOT'] . '/feedback.php' ) ;
 
 /* Determine language */
-if (isset($_GET['lang']))
-{
+if (isset($_GET['lang'])) {
 	$language_id = substr(htmlspecialchars($_GET['lang']), 0, 2) ;
 	
 	if (!preg_match('/^(bg|en)$/', $language_id))
@@ -23,8 +22,7 @@ if (isset($_GET['lang']))
 }
 
 /* Determine parcel sender */
-if ( isset ($_GET['p'] ) && !empty ($_GET['p'] ) )
-{
+if ( isset ($_GET['p'] ) && !empty ($_GET['p'] ) ) {
 	$parcel_id = htmlspecialchars($_GET['p']) ;
 	// ******************************************************************************
 	// Maybe do some more input sanitization?
@@ -66,7 +64,7 @@ if ( isset ($_GET['p'] ) && !empty ($_GET['p'] ) )
 		die() ;
 }
 
-function printSpeedy($parcel_id, $language_id){
+function printSpeedy($parcel_id, $language_id) {
 	
 	/* Make API request */
 	$reqURL = SPEEDY_API_BASE . SPEEDY_API_CMD_TRACK . '?userName=' . SPEEDY_USER . '&password=' . SPEEDY_PASS . '&language=' . $language_id . '&parcels=' . $parcel_id ;
@@ -100,6 +98,7 @@ function printSpeedy($parcel_id, $language_id){
 		$opdate = strtotime($opdate) ;
 		$opdate = date('d.m.Y H:i', $opdate) ;
 		$opcode = $operations[$i]['operationCode'] ;
+		$opstatus	= $operations[$i]['description'] ;
 
 		/* Checking for DPD Predict */
 		if (175 === $opcode)
@@ -110,7 +109,7 @@ function printSpeedy($parcel_id, $language_id){
 		echo '<div class="monospaced">' ;
 		echo '<span class="timestamp">' . $opdate . '</span>' ;
 		echo " &rarr; " ;
-		echo '<span class="monoblocked">' . $operations[$i]['description'] . '</span>' ;
+		echo '<span class="monoblocked">' . $opstatus . '</span>' ;
 		echo '</div>' ;
 	}
 	
@@ -151,8 +150,7 @@ function printSpeedy($parcel_id, $language_id){
 	}
 }
 
-
-function printEcont($parcel_id, $language_id){
+function printEcont($parcel_id, $language_id) {
 
 	/* Make API request */
 	$reqURL = ECONT_API_BASE . ECONT_API_CMD_TRACK ;
@@ -221,14 +219,18 @@ function printEcont($parcel_id, $language_id){
 		$opdate = $operations[$i]['time'] / 1000 ;
 		$opdate = date('d.m.Y H:i', $opdate) ;
 
+		if ('en' == $language_id) {
+			$opstatus		= $terms_en[$operations[$i]['destinationType']] ;
+			$oplocation = $operations[$i]['destinationDetailsEn'] ;
+		} else {
+			$opstatus		= $terms[$operations[$i]['destinationType']] ;
+			$oplocation = $operations[$i]['destinationDetails'] ;
+		}
+
 		echo '<div class="monospaced">' ;
 		echo '<span class="timestamp">' . $opdate . '</span>' ;
 		echo " &rarr; " ;
-		if ('en' == $language_id) {
-			echo '<span class="monoblocked">' . $terms_en[$operations[$i]['destinationType']] . '</span> <span class="monoblocked">' . $operations[$i]['destinationDetailsEn'] . '</span>' ;
-		} else {
-			echo '<span class="monoblocked">' . $terms[$operations[$i]['destinationType']]    . '</span> <span class="monoblocked">' . $operations[$i]['destinationDetails']   . '</span>' ;
-		}
+		echo '<span class="monoblocked">' . $opstatus . '</span> <span class="monoblocked" style="display: block; opacity: 0.75; ">' . $oplocation . '</span>' ;
 		echo '</div>' ;
 
 		/* If package has been delivered, show the delivery notice and ask for a review */
@@ -240,8 +242,7 @@ function printEcont($parcel_id, $language_id){
 
 }
 
-
-function printA1post($parcel_id, $language_id){
+function printA1post($parcel_id, $language_id) {
 
 	if ('bg' == $language_id || '' == $language_id )
 	{
@@ -286,7 +287,7 @@ function printA1post($parcel_id, $language_id){
 	}
 }
 
-function printLeoexpres($parcel_id){
+function printLeoexpres($parcel_id) {
 
 	// Pull data from the website
 	$reqURL = LEOEXPRES_URL_BASE . $parcel_id ;
