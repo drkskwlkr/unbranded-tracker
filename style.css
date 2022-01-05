@@ -55,7 +55,8 @@ div.monospaced:nth-child(even)
 }
 
 span.monoblocked {
-	display:      inline-block ;
+	/* display:      inline-block ; */
+	display:      block ;
 	font-family:  inherit ;
 }
 
