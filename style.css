@@ -54,7 +54,7 @@ h2.alert {
 .h3delivered {
 	font-size:	20px;
 	padding:		6px 24px 6px 24px;
-	background-color: #fd7676;
+	background-color: #aafb9f ;
 	border-bottom: #cbcbcb solid 1px ;
 	flex: 1 1 auto;
 }
@@ -63,16 +63,28 @@ h2.alert {
 	content: "✔ " ;
 }
 
-.h3returned {
+.h3rejected {
 	font-size:	20px;
-	padding:		6px 24px 6px 24px;
-	background-color: #aafb9f;
+	padding:		12px 24px 12px 24px;
+	background-color: #fd7676;
 	border-bottom: #cbcbcb solid 1px ;
 	flex: 1 1 auto;
 }
 
-.h3delivered::before {
-	content: "🔁 " ;
+.h3rejected:before {
+	content: "❌ " ;
+}
+
+.h3returned {
+	font-size:	20px;
+	padding:		12px 24px 18px 24px;
+	background-color: #998989;
+	border-bottom: #cbcbcb solid 1px ;
+	flex: 1 1 auto;
+}
+
+.h3returned::before {
+	content: "💩 " ;
 }
 
 div.monospaced {

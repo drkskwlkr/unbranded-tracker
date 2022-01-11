@@ -177,6 +177,14 @@ function printEcont($parcel_id, $language_id) {
 	/* Interpret request output */
 	$response		= json_decode($json_response, true) ;
 	$operations	= $response['shipmentStatuses'][0]['status']['trackingEvents'] ;
+
+	/* DEBUG */
+	/*
+	echo "<pre>\n" ;
+	echo var_dump($operations) ;
+	echo "</pre>\n" ;
+	*/
+	/* DEBUG */
 	
 	/* Check if shipment destination is an office */
 	if ("office" == $response['shipmentStatuses'][0]['status']['receiverDeliveryType'])
@@ -212,6 +220,9 @@ function printEcont($parcel_id, $language_id) {
 	] ;
 	*/
 
+	/* Monitor if shipment is returned */
+	$returnflag = false ;
+
 	/* Print data */
 	for ($i=0; $i < count($operations); $i++)
 	{
@@ -231,12 +242,14 @@ function printEcont($parcel_id, $language_id) {
 		echo '<span class="monoblocked-inline">' . $opstatus . '</span> <span class="monoblocked">' . $oplocation . '</span>' ;
 		echo '</div>' ;
 
-		/* If package has been delivered, show the delivery notice and ask for a review */
-		if ("client" === $operations[$i]['destinationType']) { // Package has been delivered
-			echo '<h3 class="h3delivered">Пратката е доставена</h3>' . "\n" ;
-		feedbackRequestGoogle() ;
-		} elseif (0) // ("client" === $operations[$i]['destinationType']) { // Package has been reclaimed/returned
-			echo '<h3 class="h3returned">Пратката е върната на изпращача</h3>' . "\n" ;
+		if ("client" === $operations[$i]['destinationType'] && false === $returnflag) { // Package has been delivered OK; ask for review
+			echo '<h3 class="h3delivered">Пратката е доставена</h3>' ;
+			feedbackRequestGoogle() ;
+		} elseif ("return" === $operations[$i]['destinationType'] && false === $returnflag) { // Package has been rejected and is being returned to sender
+			$returnflag = true ;
+			echo '<h3 class="h3rejected">Пратката пътува обратно към изпращача</h3>' ;
+		} elseif ("client" === $operations[$i]['destinationType'] && true === $returnflag) { // Package has been returned to sender
+			echo '<h3 class="h3returned">Пратката е върната на изпращача</h3>' ;
 		}
 	}
 
