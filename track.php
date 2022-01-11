@@ -235,6 +235,8 @@ function printEcont($parcel_id, $language_id) {
 		if ("client" === $operations[$i]['destinationType']) { // Package has been delivered
 			echo '<h3 class="h3delivered">Пратката е доставена</h3>' . "\n" ;
 		feedbackRequestGoogle() ;
+		} elseif (0) // ("client" === $operations[$i]['destinationType']) { // Package has been reclaimed/returned
+			echo '<h3 class="h3returned">Пратката е върната на изпращача</h3>' . "\n" ;
 		}
 	}
 
