@@ -12,14 +12,9 @@ require_once( $_SERVER['DOCUMENT_ROOT'] . '/feedback.php' ) ;
 /* Determine parcel sender */
 if ( isset ($_GET['p'] ) && !empty ($_GET['p'] ) ) {
 	$parcel_id = htmlspecialchars($_GET['p']) ;
-	// ******************************************************************************
-	// Maybe do some more input sanitization?
-	// e.g. limit character length, accept only alphanumericals and # sign (for CVC)?
-	// ******************************************************************************
-	
 	if (preg_match(PATTERN_SPEEDY, $parcel_id)) {
 		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="speedy">Спиди</span>. Хронология<span class="optional"> на събитията</span>:</h2></div>' ;
-		printSpeedy($parcel_id, $language_id) ;
+		printSpeedy($parcel_id) ;
 	} else {
 		/* Replace echo statement with something else if you want to modify */
 		/* page behavior for people who land on page without a tracking no. */
@@ -28,7 +23,7 @@ if ( isset ($_GET['p'] ) && !empty ($_GET['p'] ) ) {
 	}
 }
 
-function printSpeedy($parcel_id, $language_id) {
+function printSpeedy($parcel_id) {
 	
 	/* Make API request */
 	$reqURL = SPEEDY_API_BASE . SPEEDY_API_CMD_TRACK . '?userName=' . SPEEDY_USER . '&password=' . SPEEDY_PASS . '&language=' . $language_id . '&parcels=' . $parcel_id ;
@@ -134,7 +129,7 @@ function printSpeedy($parcel_id, $language_id) {
 	} elseif ($collect) { // Package has been sent to office and is not yet delivered
 		echo '<h3 class="h3map">Локация и работно време:</h3>' ;
 		echo '<div class="map">' ;
-		echo '<iframe class="ifmap" src="https://services.speedy.bg/officesmap?lang=' . $language_id . '&id=' . $collect . '">' ;
+		echo '<iframe class="ifmap" src="https://services.speedy.bg/officesmap?lang=bg&id=' . $collect . '">' ;
 		echo '</div>' ;
 	}
 	*/
