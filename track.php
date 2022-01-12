@@ -100,16 +100,18 @@ function printSpeedy($parcel_id, $language_id) {
 		$opcode = $operations[$i]['operationCode'] ;
 		$opstatus	= $operations[$i]['description'] ;
 
-		/* Checking for DPD Predict */
-		if (175 === $opcode)
-		{
-			$predict = $operations[$i]['comment'] ;
-		}
-
 		echo '<div class="monospaced">' ;
 		echo '<span class="timestamp">' . $opdate . '</span>' ;
 		echo '<span class="monoblocked-inline">' . $opstatus . '</span>' ;
 		echo '</div>' ;
+
+		
+		/* Checking for DPD Predict */
+		if (175 === $opcode)
+		{
+			$predict = $operations[$i]['comment'] ;
+			echo '<div class="predict">' . $predict . '</div>' ;
+		}
 	}
 	
 	/* Check if there is office location data */
