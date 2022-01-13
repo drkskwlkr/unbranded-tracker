@@ -36,12 +36,28 @@ h2.alert {
 	color:#dc0032 ;
 }
 
+.h3office {
+	font-weight: normal ;
+	font-size:	20px;
+	padding:		6px 24px 6px 24px;
+	background-color: #fbc517 ;
+	flex: 1 1 auto;
+}
+
+.h3date {
+	font-weight: normal ;
+	font-size:	20px;
+	padding:		6px 24px 6px 24px;
+	background-color: #fbc517 ;
+	border-bottom: #cbcbcb solid 1px ;
+	flex: 1 1 auto;
+}
+
 .h3map {
 	font-size:	20px;
 	padding:		6px 24px 6px 24px;
-	background-color: #e3e3e3;
+	background-color: #fbc517 ;
 	border-bottom: #cbcbcb solid 1px ;
-
 	flex: 1 1 auto;
 }
 
@@ -125,10 +141,6 @@ span.timestamp {
 	padding: 2px;
 }
 
-span.optional {
-	display:			none ;
-}
-
 span.timestamp::after {
 	content: " ➡"
 }
@@ -192,11 +204,14 @@ span.status {
 		font-size:	20px;
   }
 
+	span.optional {
+		display:			none ;
+	}
+	
 	.ifmap {
 		width: 				100% ;
 		height:				400px ;
 		border:				0px;
-
 	}
 
 	.reviewarea {
@@ -213,7 +228,7 @@ span.status {
 @media only screen and (min-device-width: 768px) {
 
 	#main {
-		max-width:	800px ;
+		max-width:	900px ;
 		margin:			24px;
 		border:			1px solid darkgrey;
 	}
@@ -276,14 +291,13 @@ span.status {
   .optional {
     display:      inline ;
   }
+	*/
 
 	.ifmap {
 		width: 				100% ;
 		height:				600px ;
 		border:				0px;
-
 	}
-	*/
 
 	.reviewarea {
 		font-size:				16px;
@@ -292,5 +306,4 @@ span.status {
 		border-bottom:		#cbcbcb solid 1px ;
 		flex: 1 1 auto;
   }
-
 }

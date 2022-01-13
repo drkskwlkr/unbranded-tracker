@@ -139,15 +139,30 @@ function printSpeedy($parcel_id, $language_id) {
 	$data		= json_decode($response, true) ;
 
 	$collect	= $data['shipments']['0']['recipient']['pickupOfficeId'] ;
+	$cod			= $data['shipments']['0']['service']['additionalServices']['cod']['amount'] ;
+	if ('RECIPIENT' === ['payment']['courierServicePayer']) {
+		$shipping	= $data['shipments']['0']['recipient']['service']['additionalServices']['price']['amount'] ;
+	} else {
+		$shipping = 0 ;
+	}
+	$deadline	= date('d.m.Y г.', strtotime($data['shipments']['0']['delivery']['deadline'])) ;
+	
+	/*
+	echo "<pre>" ;
+	print_r ($data) ;
+	echo "</pre>" ;
+	*/
 
 	if (-14 === $opcode) { // Package has been delivered
 		echo '<h3 class="h3delivered">Пратката е доставена</h3>' . "\n" ;
 		feedbackRequestGoogle() ;
 	} elseif ($collect) { // Package has been sent to office and is not yet delivered
-		echo '<h3 class="h3map">Локация и работно време:</h3>' ;
+		echo '<h3 class="h3office">Пратката е адресирана <strong>до поискване</strong></h3>' ;
+		echo '<h3 class="h3date">Дата на доставка: <strong>' . $deadline . '</strong></h3>' ;
+		// echo '<h3 class="h3map">Локация и работно време на офиса</h3>' ;
 		echo '<div class="map">' ;
 		echo '<iframe class="ifmap" src="https://services.speedy.bg/officesmap?lang=' . $language_id . '&id=' . $collect . '">' ;
-		echo '</div>' ;
+		echo '</div>' ;		
 	}
 }
 
@@ -252,6 +267,7 @@ function printEcont($parcel_id, $language_id) {
 			echo '<h3 class="h3rejected">Пратката пътува обратно към изпращача</h3>' ;
 		} elseif ("client" === $operations[$i]['destinationType'] && true === $returnflag) { // Package has been returned to sender
 			echo '<h3 class="h3returned">Пратката е върната на изпращача</h3>' ;
+			break ;
 		}
 	}
 
