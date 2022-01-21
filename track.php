@@ -104,7 +104,6 @@ function printSpeedy($parcel_id, $language_id) {
 		echo '<span class="timestamp">' . $opdate . '</span>' ;
 		echo '<span class="monoblocked-inline">' . $opstatus . '</span>' ;
 		echo '</div>' ;
-
 		
 		/* Checking for DPD Predict */
 		if (175 === $opcode)
@@ -112,6 +111,7 @@ function printSpeedy($parcel_id, $language_id) {
 			$predict = $operations[$i]['comment'] ;
 			echo '<div class="predict">' . $predict . '</div>' ;
 		}
+
 	}
 	
 	/* Check if there is office location data */
@@ -162,13 +162,17 @@ function printSpeedy($parcel_id, $language_id) {
 	if (-14 === $opcode) { // Package has been delivered
 		echo '<h3 class="h3delivered">Пратката е доставена</h3>' . "\n" ;
 		feedbackRequestGoogle() ;
-	} elseif ($collect) { // Package has been sent to office and is not yet delivered
+	}	elseif (111 === $opcode) {		// Package has been rejected and is being returned to sender
+		echo '<h3 class="h3rejected">Пратката пътува обратно към изпращача</h3>' ;
+	}	elseif (124 === $opcode) {		// Package has been returned to sender
+		echo '<h3 class="h3returned">Пратката е върната на изпращача</h3>' ;
+	} elseif ($collect) {						// Package has been sent to office and is not yet collected
 		echo '<h3 class="h3office">Пратката е адресирана <strong>до поискване</strong></h3>' ;
 		echo '<h3 class="h3office">Дата на доставка: <strong>' . $deadline . '</strong></h3>' ;
 		echo '<h3 class="h3map">Локация и работно време на офиса</h3>' ;
 		echo '<div class="map">' ;
 		echo '<iframe class="ifmap" src="https://services.speedy.bg/officesmap?lang=' . $language_id . '&id=' . $collect . '">' ;
-		echo '</div>' ;		
+		echo '</div>' ;
 	}
 }
 
@@ -201,14 +205,6 @@ function printEcont($parcel_id, $language_id) {
 	$response		= json_decode($json_response, true) ;
 	$operations	= $response['shipmentStatuses'][0]['status']['trackingEvents'] ;
 
-	/* DEBUG */
-	/*
-	echo "<pre>\n" ;
-	echo var_dump($operations) ;
-	echo "</pre>\n" ;
-	*/
-	/* DEBUG */
-	
 	/* Check if shipment destination is an office */
 	if ("office" == $response['shipmentStatuses'][0]['status']['receiverDeliveryType'])
 	{
