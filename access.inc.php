@@ -22,7 +22,7 @@ define('LEOEXPRES_URL_BASE', "https://leoexpres.bg/include/ajax/get_trace.php?wb
 
 
 # ------- CVC -----------
-define('CVC_API_BASE', "https://cvc.bg/system/integration/tracking.do") ;
+define('CVC_API_BASE', "https://my.e-cvc.bg/track?wb=") ;
 
 
 /* Determine courier according to tracking number format */
@@ -30,7 +30,7 @@ define('PATTERN_SPEEDY',			'/^(6)[0-9]{10}$/') ;
 define('PATTERN_ECONT',				'/^(10|53)[0-9]{11}$/') ;
 define('PATTERN_A1POST',			'/^(UR|LY|RS)[0-9]{9}(DE)$/') ;
 define('PATTERN_LEOEXPRES',		'/^(6|7)[0-9]{7}$/') ;
-define('PATTERN_CVC',		      '/^[0]{2}(09|10)[0-9]{4}$/') ;
+define('PATTERN_CVC',		      '/^[9]{1}[0-9]{7}$/') ;
 define('PATTERN_ELTAGR',      '/^(HB)[0-9]{9}(GR)$/') ;
 define('PATTERN_BGPOST',			'/^(CP|RI|CV|VV)[0-9]{9}(BG)$/') ;
 define('PATTERN_EMSBULPOST',	'/^(ED|EE)[0-9]{9}(BG)$/') ;

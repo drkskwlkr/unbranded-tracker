@@ -43,7 +43,7 @@ if ( isset ($_GET['p'] ) && !empty ($_GET['p'] ) ) {
 		printLeoexpres($parcel_id) ;
 	} elseif (preg_match(PATTERN_CVC, $parcel_id)) {
 		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="cvc">CVC</span>. Хронология<span class="optional"> на събитията</span>:</h2></div>' ;
-		printCVC($parcel_id, $language_id) ;
+		printCVC($parcel_id) ;
 	} elseif (preg_match(PATTERN_ELTAGR, $parcel_id)) {
 		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="elta">Hellenic Post (ΕΛΤΑ)</span>. Хронология<span class="optional"> на събитията</span>:</h2></div>' ;
 		printEltaGR($parcel_id) ;
@@ -354,50 +354,46 @@ function printLeoexpres($parcel_id) {
 	}
 }
 
-function printCVC($parcel_id, $language_id) {
+function printCVC($parcel_id) {
 
-	/* Make API request */
-	$reqURL = CVC_API_BASE . '?full=true&view=json&locale=' . $language_id . '&manifestID=' . $parcel_id ;
+	/* Grab output from CVC tracking page */
+	$reqURL = CVC_API_BASE . $parcel_id ;
+	$html   = @file_get_contents ($reqURL) ;
 
-	$curl = curl_init($reqURL) ;
-	curl_setopt($curl, CURLOPT_HEADER, false) ;
-	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true) ;
-	curl_setopt($curl, CURLOPT_POST, false) ;
+	/* Get the parts which we need */
+	$trim_start     = "<div class='tblRowsSimple' id='tblRows'>" ;
+	$trim_start_len	= strlen($trim_start) ;
+	$trim_end				= "<a href='/track'" ;
+	$trim_end_len		= strlen($trim_end) ;
 
-	$json_response = curl_exec($curl) ;
+	$output	= substr(strstr(strstr($html, $trim_start, false), $trim_end, true), $trim_start_len) ;
+	$output	= ltrim($output, "\n") ;							// remove leftover newline characters
+	$output = str_replace("\t", "", $output) ;		// remove all tabs
+	$output	= rtrim($output, "\n") ;							// remove leftover newline characters
+	$output	= substr($output, 0, -6) ;						// remove leftover div closing tag
+	$output	= rtrim($output, "\n") ;							// remove leftover newline characters
 
-	$status = curl_getinfo($curl, CURLINFO_HTTP_CODE) ;
+	/* Replace CVC output formatting with UT formatting and print data*/
+	$seek	= array(
+		'/^<div class=\'tblRow\' style=\'cursor:default;\'>$/m' ,
+		'/^<div class=\'tblItem\' style=\'flex-basis:85px;\'>/m' ,
+		'/<div class=\'note\'>/m' ,
+		'/:[0-5][0-9]<\/div><\/div>$/m' ,
+		'/^<div class=\'tblItem left bold\' style=\'flex:1;\'>/m' ,
+		'/(?<!^)<\/div>$/m' 
+	) ;
 
-	if ( $status != 200 ) {
-		die("Error: call to URL $reqURL failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl)) ;
-	}
+	$replace = array(
+		'' ,
+		'<div class="monospaced"><span class="timestamp">' ,
+		'&nbsp;' ,
+		'</span>' ,
+		'<span class="monoblocked-inline">' ,
+		'</span>'
+	) ;
+	
+	echo preg_replace ($seek, $replace, $output) ;
 
-	curl_close($curl) ;
-
-	/* Interpret request output */
-	$response		= json_decode($json_response, true) ;
-	$operations	= $response['states'] ;
-
-	/* Print data */
-	$limit = count($operations) - 1 ;
-
-	for ($i = $limit; $i >= 0 ; $i--)
-	{
-		$opdate = $operations[$i]['date'] / 1000 ;
-		$opdate = date('d.m.Y H:i', $opdate) ;
-
-		echo '<div class="monospaced">' ;
-		echo '<span class="timestamp">' . $opdate . '</span>' ;
-		echo '<span class="monoblocked-inline">' . $operations[$i]['display'] . '</span> <span class="monoblocked">' . $operations[$i]['station'] . '</span>' ;
-		echo '</div>' ;
-		
-		/* If package has been delivered, show the delivery notice and ask for a review */
-		if ("Доставена - без възражения" === $operations[$i]['display']) { // Package has been delivered
-			echo '<h3 class="h3delivered">Пратката е доставена</h3>' . "\n" ;
-			feedbackRequestGoogle() ;
-		break ;
-		}
-	}
 }
 
 function printEltaGR($parcel_id) {
