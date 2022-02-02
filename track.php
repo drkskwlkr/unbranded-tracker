@@ -360,6 +360,21 @@ function printCVC($parcel_id) {
 	$reqURL = CVC_API_BASE . $parcel_id ;
 	$html   = @file_get_contents ($reqURL) ;
 
+	/* Check first if CVC tells us it is an invalid waybill */
+	$notfound	= 'Пратката не е открита!' ;
+
+	$result = strpos($html, $notfound) ;
+	/*
+	echo var_dump($result) ;
+	die() ;
+	*/
+
+	if (false !== strpos($html, $notfound))
+	{
+		echo '<div class="monospaced">Системата на куриера не може да открие пратка с този номер (<strong>' . $parcel_id . '</strong>).<br><strong><a href="' . SITE_CONTACT_URL . '">Свържете се с нас</a></strong> за повече информация. </div></div>' ;
+		return ;
+	}
+
 	/* Get the parts which we need */
 	$trim_start     = "<div class='tblRowsSimple' id='tblRows'>" ;
 	$trim_start_len	= strlen($trim_start) ;

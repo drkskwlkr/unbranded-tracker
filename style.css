@@ -149,6 +149,20 @@ span.status {
 	font-family:  inherit ;
 }
 
+a {
+	font-family: inherit ;
+	text-decoration: none ;
+}
+
+a:hover {
+	font-family: inherit ;
+	text-decoration: underline ;
+}
+
+strong {
+	font-family: inherit ;
+}
+
 .pull-right {
 	float:				right ;
 }
