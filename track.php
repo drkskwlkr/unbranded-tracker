@@ -363,15 +363,10 @@ function printCVC($parcel_id) {
 	/* Check first if CVC tells us it is an invalid waybill */
 	$notfound	= 'Пратката не е открита!' ;
 
-	$result = strpos($html, $notfound) ;
-	/*
-	echo var_dump($result) ;
-	die() ;
-	*/
-
 	if (false !== strpos($html, $notfound))
 	{
-		echo '<div class="monospaced">Системата на куриера не може да открие пратка с този номер (<strong>' . $parcel_id . '</strong>).<br><strong><a href="' . SITE_CONTACT_URL . '">Свържете се с нас</a></strong> за повече информация. </div></div>' ;
+		echo '<div class="monospaced">Системата на куриера не може да открие пратка с този номер (<strong>' . $parcel_id . '</strong>).<br> ' ;
+		echo '<strong><a href="' . SITE_CONTACT_URL . '">Свържете се с нас</a></strong> за повече информация. </div></div>' ;
 		return ;
 	}
 
