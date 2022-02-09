@@ -29,7 +29,7 @@ define('CVC_API_BASE', "https://my.e-cvc.bg/track?wb=") ;
 define('PATTERN_SPEEDY',			'/^(6)[0-9]{10}$/') ;
 define('PATTERN_ECONT',				'/^(10|53)[0-9]{11}$/') ;
 define('PATTERN_A1POST',			'/^(UR|LY|RS)[0-9]{9}(DE)$/') ;
-define('PATTERN_LEOEXPRES',		'/^(6|7)[0-9]{7}$/') ;
+define('PATTERN_LEOEXPRES',		'/^[6-8]{1}[0-9]{7}$/') ;
 define('PATTERN_CVC',		      '/^[9]{1}[0-9]{7}$/') ;
 define('PATTERN_ELTAGR',      '/^(HB)[0-9]{9}(GR)$/') ;
 define('PATTERN_BGPOST',			'/^(CP|RI|CV|VV)[0-9]{9}(BG)$/') ;
