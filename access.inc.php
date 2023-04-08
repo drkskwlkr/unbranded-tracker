@@ -30,6 +30,7 @@ define('PATTERN_SPEEDY',			'/^(6)[0-9]{10}$/') ;
 define('PATTERN_ECONT',				'/^(10|53)[0-9]{11}$/') ;
 define('PATTERN_A1POST',			'/^(UR|LY|RS)[0-9]{9}(DE)$/') ;
 define('PATTERN_LEOEXPRES',		'/^[6-8]{1}[0-9]{7}$/') ;
+define('PATTERN_EVROPAT',     '/^91\d{8}$/') ;
 define('PATTERN_CVC',		      '/^[9]{1}[0-9]{7}$/') ;
 define('PATTERN_ELTAGR',      '/^(HB)[0-9]{9}(GR)$/') ;
 define('PATTERN_BGPOST',			'/^(CP|RI|CV|VV)[0-9]{9}(BG)$/') ;
@@ -45,6 +46,7 @@ A1 Post uses UPU format (XX123456789YY)
 	RS: Tracking provided, require signature on delivery
 	Trailing marker is always DE
 Leo Expres uses 8-digit tracking numbers; the first one is either a 6 or a 7
+Evropat uses 10-digit tracking numbers; the first two are assumed to be 91
 CVC uses uses 8-digit tracking numbers; we presume they increase linearly and
 are currently in the 90,000 — 100,000 range.
 BG Post uses UPU format as well. Confirmed codes:
