@@ -5,7 +5,8 @@ UT разпознава пратките на :
 - Спиди
 - Еконт
 - A1 Post
-- Лео Експрес
+- Лео Експрес (куриерът вече не осъществява дейност)
+- Европът
 - CVC
 - Български пощи
 - EMS Bulpost
@@ -100,6 +101,7 @@ define ('LANGUAGE_DEFAULT',	"bg") ; // Determine default language for return que
 - [Примерен резултат с Еконт](https://utdemo.webstage.dev/1054219036007) 
 - [Примерен резултат с A1 Post](https://utdemo.webstage.dev/RS082678975DE)
 - [Примерен резултат с Leo Expres](https://utdemo.webstage.dev/69904612)
+- [Примерен резултат с Европът](https://utdemo.webstage.dev/9103059081)
 - [Примерен резултат със CVC](https://utdemo.webstage.dev/93282443)
 - [Примерен резултат с Български пощи](https://utdemo.webstage.dev/CP112509907BG)
 - [Примерен резултат с EMS Bulpost](https://utdemo.webstage.dev/EE006502779BG)
