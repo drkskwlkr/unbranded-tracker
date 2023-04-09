@@ -41,6 +41,9 @@ if ( isset ($_GET['p'] ) && !empty ($_GET['p'] ) ) {
 	} elseif (preg_match(PATTERN_LEOEXPRES, $parcel_id)) {
 		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="leoexpres">Leo Expres</span>. Хронология<span class="optional"> на събитията</span>:</h2></div>' ;
 		printLeoexpres($parcel_id) ;
+	} elseif (preg_match(PATTERN_EVROPAT, $parcel_id)) {
+ 		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="evropat">Европът</span>. Хронология<span class="optional"> на събитията</span>:</h2></div>' ;
+ 		printEvropat($parcel_id) ;
 	} elseif (preg_match(PATTERN_CVC, $parcel_id)) {
 		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="cvc">CVC</span>. Хронология<span class="optional"> на събитията</span>:</h2></div>' ;
 		printCVC($parcel_id) ;
@@ -352,6 +355,49 @@ function printLeoexpres($parcel_id) {
 			feedbackRequestGoogle() ;
 		}
 	}
+}
+
+function printEvropat($parcel_id) {
+ 
+   $curl = curl_init() ;
+ 
+   curl_setopt_array($curl, array(
+     CURLOPT_URL => 'https://evropat.bg/wp-content/tools/getInformation.php?shipment_barcode=' . $parcel_id,
+     CURLOPT_RETURNTRANSFER => true,
+     CURLOPT_ENCODING => '',
+     CURLOPT_MAXREDIRS => 0,
+     CURLOPT_TIMEOUT => 0,
+     CURLOPT_FOLLOWLOCATION => true,
+     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+     CURLOPT_CUSTOMREQUEST => 'GET',
+   ));
+ 
+   $response = json_decode(curl_exec($curl)) ;
+ 
+   curl_close($curl) ;
+
+   foreach ($response as $data) {
+ 
+     $dateAndTime = explode(' ', $data->dateAndTime) ;
+     $date = explode('-', $dateAndTime[0]) ;
+     $time = explode(':', $dateAndTime[1]) ;
+ 
+     $opdate   = $date[2] . '.' .  $date[1] . '.' . $date[0] . ' ' . $time[0] . ':' . $time[1] ;
+     $opstatus = $data->stateName ;
+     $opstatex = $data->additionalInformation ;
+ 
+     echo '<div class="monospaced">' ;
+     echo '<span class="timestamp">' . $opdate . '</span>' ;
+     echo '<span class="monoblocked-inline">' . $opstatus . '</span>' ;
+     echo ' | <span class="monoblocked-inline">' . $opstatex . '</span>' ;
+     echo '</div>' ;
+     
+     if ($opstatus == 'Разнесена') { // Package has been delivered
+       echo '<h3 class="h3delivered">Пратката е доставена</h3>' . "\n" ;
+       feedbackRequestGoogle() ;
+       break ;
+     } 
+   } 
 }
 
 function printCVC($parcel_id) {
