@@ -453,12 +453,22 @@ function printCVC($parcel_id) {
 }
 
 function printEltaGR($parcel_id) {
-  $terms = [ 
-    'Shipment in transit'       => 'Натоварена на линия',
-    'Arrival'                   => 'Пристигнала в офис',
-    'With carrier for delivery' => 'В куриер за разнос',
-    'Shipment delivered'        => 'Доставена на получателя',
-  ] ; 
+  
+  function translate($term) {
+    $dict = [ 
+     'Shipment in transit'        => 'Натоварена на линия',
+     'Arrival'                    => 'Пристигнала в офис',
+     'Arrival  SINDOS 2 - AGENCY' => 'Пристигнала в офис',
+     'With carrier for delivery'  => 'В куриер за разнос',
+     'Shipment delivered'         => 'Доставена на получателя',
+   ] ; 
+
+  if ( $dict[$term] == null ) { 
+      return $term ;
+    } else {
+      return $dict[$term] ;
+    }   
+  } ; 
 
   $callEltaTrack  = 'https://itemsearch.elta.gr/en-GB/Query/Direct/' ;
   $reqURL         = $callEltaTrack . $parcel_id ;
