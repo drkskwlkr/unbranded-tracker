@@ -38,9 +38,11 @@ if ( isset ($_GET['p'] ) && !empty ($_GET['p'] ) ) {
 	} elseif (preg_match(PATTERN_A1POST, $parcel_id)) {
 		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="a1post">A1 Post</span>. Хронология<span class="optional"> на събитията</span>:</h2></div>' ;
 		printA1post($parcel_id, $language_id) ;
+	/*
 	} elseif (preg_match(PATTERN_LEOEXPRES, $parcel_id)) {
 		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="leoexpres">Leo Expres</span>. Хронология<span class="optional"> на събитията</span>:</h2></div>' ;
 		printLeoexpres($parcel_id) ;
+	*/
 	} elseif (preg_match(PATTERN_EVROPAT, $parcel_id)) {
  		echo '<h2>Доставка<span class="optional">та се изпълнява</span> чрез <span class="evropat">Европът</span>. Хронология<span class="optional"> на събитията</span>:</h2></div>' ;
  		printEvropat($parcel_id) ;
