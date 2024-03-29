@@ -137,7 +137,7 @@ function printSpeedy($parcel_id, $language_id) {
 	$status = curl_getinfo($curl, CURLINFO_HTTP_CODE) ;
 	if ( $status != 200 )
 	{
-			die("Error: call failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl)) ;
+		die("Error: call failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl)) ;
 	}
 	curl_close($curl) ;
 
